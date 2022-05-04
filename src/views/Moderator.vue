@@ -54,11 +54,14 @@ export default {
             }
           }
       ).then(response => {
+        alert("Õnnestus")
         console.log(response.data)
       }).catch(error => {
+        alert("Ei õnnestunud")
         console.log(error)
       })
     },
+
 
     getUserContactByUserId: function () {
 
@@ -93,6 +96,8 @@ export default {
         console.log(error)
       })
     },
+
+
 
   }
 }

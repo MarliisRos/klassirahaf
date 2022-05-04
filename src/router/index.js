@@ -4,19 +4,20 @@ import HomeView from '../views/HomeView.vue'
 import Login from "@/views/Login";
 import Moderator from "@/views/Moderator";
 import RegisterView from "@/views/RegisterView";
+import ParentView from "@/views/ParentView";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'homeRoute',
         component: HomeView
     },
 
     {
         path: '/login',
-        name: 'Login',
+        name: 'loginRoute',
         component: Login
     },
 
@@ -31,6 +32,12 @@ const routes = [
         path: '/moderator',
         name: 'moderatorRoute',
         component: Moderator
+    },
+
+    {
+        path: '/parent',
+        name: 'parentRoute',
+        component: ParentView
     },
     {
         path: '/about',

@@ -6,7 +6,7 @@
     <h1>Log in</h1>
     <input placeholder="username" v-model="userName"><br>
     <input placeholder="password" v-model="password"><br>
-    <button v-on:click="logIn" >Log in</button>
+    <button v-on:click="logIn">Log in</button>
     <br>
     <br>
 
@@ -31,17 +31,13 @@ export default {
 
       userName: '',
       password: '',
-      userId:"",
+      userId: "",
       userRoleId: ""
     }
 
   },
 
   methods: {
-    openRegister: function () {
-    alert('Avas registreerimise')
-
-    },
 
     logIn: function () {
 
@@ -56,18 +52,27 @@ export default {
         this.userId = response.data.userId
         this.userRoleId = response.data.userRoleId
         sessionStorage.setItem('userId', this.userId)
-        switch (this.userRoleId) {
-          case "4":
-            this.$router.push({name: 'moderatorRoute'})
+        sessionStorage.setItem('userRoleId', this.userRoleId)
 
+        if (this.userRoleId == 4) {
+          this.$router.push({name: 'moderatorRoute'})
+
+        } else {
+          this.$router.push({name: 'parentRoute'})
         }
-      }).catch(error => {
-        alert("Sisselogimine ei õnnestunud")
-        console.log(error)
-      })
-    },
 
-  },
+        // switch (this.userRoleId) {
+        //   case "4":
+        //     this.$router.push({name: 'moderatorRoute'})
+
+    }
+).catch(error => {
+  alert("Sisselogimine ei õnnestunud")
+  console.log(error)
+})
+},
+
+},
 
 }
 
