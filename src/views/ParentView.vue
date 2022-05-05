@@ -6,7 +6,7 @@
 
     <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
     <input placeholder="Description" v-model="groupInfoRequest.description"><br>
-    <button v-on:click="createNewGroup">Create new gruop</button>
+    <button v-on:click="createNewGroup">Create new group</button>
     <br>
     <br>
 
@@ -90,10 +90,7 @@ export default {
         groupName: '',
         description: ''
       },
-
-      roleId: {
-
-      }
+      roleId: '',
     }
 
   },
@@ -101,11 +98,11 @@ export default {
   methods: {
 
     createNewGroup: function () {
-
       this.$http.post("/expense/new-group", this.groupInfoRequest
       ).then(response => {
         alert("Grupi loomine õnnestus")
         this.roleId = response.data
+        sessionStorage.setItem('roleId', response.data)
         console.log(response.data)
       }).catch(error => {
         alert("Grupi loomine ei õnnestunud")
