@@ -21,7 +21,9 @@ export default {
 
     return {
 
-      newUserInfo: {}
+      newUserInfo: {},
+      userId: 0,
+      roleId: 0
 
     }
 
@@ -33,10 +35,14 @@ export default {
 
       this.$http.post("/expense/new-user", this.newUserInfo
       ).then(response => {
-        alert("Kasutaja loomine eõnnestus")
+        alert("Kasutaja loomine õnnestus")
+        this.userId = response.data.userId
+        this.roleId = response.data.roleId
+        sessionStorage.setItem('userId', this.userId)
+        sessionStorage.setItem('roleId', this.roleId)
         console.log(response.data)
       }).catch(error => {
-        alert("Kasutaja loomine ei eõnnestunud")
+        alert("Kasutaja loomine ei õnnestunud")
         console.log(error)
       })
     },

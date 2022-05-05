@@ -32,7 +32,7 @@ export default {
       userName: '',
       password: '',
       userId: "",
-      userRoleId: ""
+      roleId: ""
     }
 
   },
@@ -50,9 +50,9 @@ export default {
       ).then(response => {
         alert("Sisselogimine õnnestus")
         this.userId = response.data.userId
-        this.userRoleId = response.data.userRoleId
+        this.userRoleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
-        sessionStorage.setItem('userRoleId', this.userRoleId)
+        sessionStorage.setItem('roleId', this.roleId)
 
         if (this.userRoleId == 4) {
           this.$router.push({name: 'moderatorRoute'})

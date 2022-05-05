@@ -34,6 +34,8 @@ const routes = [
         component: Moderator
     },
 
+
+
     {
         path: '/parent',
         name: 'parentRoute',
