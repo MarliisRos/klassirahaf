@@ -50,7 +50,7 @@ export default {
       ).then(response => {
         alert("Sisselogimine õnnestus")
         this.userId = response.data.userId
-        this.userRoleId = response.data.roleId
+        this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
 

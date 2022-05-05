@@ -41,6 +41,7 @@ export default {
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
         console.log(response.data)
+        this.$router.push({name: 'parentRoute'})
       }).catch(error => {
         alert("Kasutaja loomine ei õnnestunud")
         console.log(error)
