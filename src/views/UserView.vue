@@ -10,6 +10,7 @@
 
     <input placeholder="Group name" v-model="groupName"><br>
     <button v-on:click="getGroupByGroupName">Find Group by name</button>
+
     <br>
     <br>
 
@@ -154,7 +155,7 @@ export default {
         alert("sain grupi info")
         console.log(response.data)
       }).catch(error => {
-        console.log(error)
+        alert("Group with a name " + groupName + " not found!")
       })
     },
 
