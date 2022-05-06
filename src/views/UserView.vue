@@ -1,5 +1,6 @@
 <template>
 
+
   <div>
     <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
     <input placeholder="Description" v-model="groupInfoRequest.description"><br>
@@ -12,31 +13,36 @@
     <br>
     <br>
 
+<!--    <button v-on:click="getYourGroup">Find your groups</button>-->
+
+    <div v-if="groupListDiv">
+<!--      <input placeholder="Enter user id" v-model="userId "><br>-->
+      <table class="table table-hover" style="width:auto" align="center">
+        <thead>
+        <tr>
+          <th scope="col">Group name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Description</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="group in yourGroups">
+          <td>{{ group.groupName }}</td>
+          <td>{{ group.description }}</td>
+          <td>
+            <button v-on:click="toGroupDiv" type="button" name="btn" class="btn btn-secondary btn-sm m-3">Vali grupp
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
   </div>
 
-  <div v-if="groupListDiv">
-    <input placeholder="Enter user id" v-model="userId "><br>
-    <table class="table table-hover" style="width:auto" align="center">
-      <thead>
-      <tr>
-        <th scope="col">Group name</th>
-        <th scope="col">Description</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="group in yourGroups">
-        <td>{{ group.groupName }}</td>
-        <td>{{ group.description }}</td>
-        <td>
-          <button v-on:click="toGroupDiv" type="button" name="btn" class="btn btn-secondary btn-sm m-3">Choose group
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
 
-  </div>
 
 
 </template>
@@ -53,12 +59,12 @@ export default {
       tableDIV: false,
       tableDIV2: true,
       studentBalanceLogTable: false,
+      userId: sessionStorage.getItem('userId'),
       studentId: 0,
       id: 0,
       groupName: "",
       description: "",
       groupBalanceBalance: 0,
-      userId: 0,
       students: {},
       studentBalanceLogs: {},
       balance: {},
@@ -80,11 +86,29 @@ export default {
 
       roleId: {},
 
+
     }
 
   },
 
   methods: {
+
+    getYourGroup: function () {
+
+      this.$http.get("/expense/group-by-user-id", {
+            params: {
+              userId: this.userId,
+            }
+          }
+      ).then(response => {
+        this.yourGroups = response.data
+        this.groupId = response.data.groupId
+        sessionStorage.setItem('groupId', response.data.groupId)
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
     createNewGroup: function () {
 
@@ -92,6 +116,7 @@ export default {
       ).then(response => {
         alert("Grupi loomine õnnestus")
         this.roleId = response.data
+        this.$router.push({name: 'moderatorRoute'})
         console.log(response.data)
       }).catch(error => {
         alert("Grupi loomine ei õnnestunud")
@@ -137,8 +162,14 @@ export default {
       this.groupListDiv = false
     },
 
+  },
+
+  mounted() {
+    this.getYourGroup()
   }
 }
+
+
 </script>
 
 <style scoped>
