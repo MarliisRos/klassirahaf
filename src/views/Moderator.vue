@@ -2,7 +2,6 @@
 
   <div>
 
-
     <h2> Get students by group Id</h2>
     <input placeholder="Enter Group id" v-model="groupId"><br>
     <button v-on:click="getAllStudentsByGroupId">Enter</button>
@@ -23,6 +22,30 @@
     <br>
     <br>
     <br>
+    <button v-on:click="getYourGroup">Find your groups</button>
+
+    <div v-if="groupListDiv">
+      <input placeholder="Enter user id" v-model="userId "><br>
+      <table class="table table-hover" style="width:auto" align="center" >
+        <thead>
+        <tr >
+          <th scope="col">Group name</th>
+          <th scope="col">Description</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="group in yourGroups" >
+          <td>{{ group.groupName }}</td>
+          <td>{{ group.description}}</td>
+          <td>
+            <button v-on:click="toGroupDiv" type="button" name="btn" class="btn btn-secondary btn-sm m-3" >Vali grupp</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
 
 
   </div>
@@ -36,21 +59,39 @@ export default {
   data: function () {
 
     return {
-      groupId: "",
-      userId: "",
-      studentId: ""
-    }
+      groupId: 0,
+      userId:0,
+      // userId: sessionStorage.getItem('userId'),
+      studentId: 0,
+      yourGroups: {},
+      groupListDiv: true
 
+     }
   },
 
   methods: {
 
-    getAllStudentsByGroupId: function () {
+    getYourGroup: function () {
 
+        this.$http.get("/expense/group-by-user-id", {
+          params: {
+            userId: this.userId,
+          }
+          }
+        ).then(response => {
+          this.yourGroups = response.data
+          this.groupId = response.data.groupId
+          sessionStorage.setItem('groupId', response.data.groupId)
+              console.log(response.data)
+            }).catch(error => {
+          console.log(error)
+        })
+    },
+
+    getAllStudentsByGroupId: function () {
       this.$http.get("/moderator/all-students", {
             params: {
               groupId: this.groupId,
-
             }
           }
       ).then(response => {
@@ -64,11 +105,9 @@ export default {
 
 
     getUserContactByUserId: function () {
-
       this.$http.get("/moderator/user-contact-info", {
             params: {
               userId: this.userId,
-
             }
           }
       ).then(response => {
@@ -81,11 +120,9 @@ export default {
     },
 
     getUserContactByStudentId: function () {
-
       this.$http.get("/moderator/user-contact-by-student-id", {
             params: {
               studentId: this.studentId,
-
             }
           }
       ).then(response => {
@@ -96,6 +133,10 @@ export default {
         console.log(error)
       })
     },
+
+    toGroupDiv: function () {
+      this.groupListDiv = false
+    }
 
 
 
