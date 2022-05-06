@@ -2,19 +2,6 @@
 
   <div>
 
-
-    <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
-    <input placeholder="Description" v-model="groupInfoRequest.description"><br>
-    <button v-on:click="createNewGroup">Create new gruop</button>
-    <br>
-    <br>
-
-    <input placeholder="Group name" v-model="groupName"><br>
-    <button v-on:click="getGroupByGroupName">Find Group by name</button>
-    <br>
-    <br>
-
-
     <input placeholder="StudentId" v-model="id"><br>
     <button v-on:click="getStudentBalanceById">Get student balance info</button>
     <br>
@@ -177,19 +164,6 @@ export default {
 
   methods: {
 
-    createNewGroup: function () {
-
-      this.$http.post("/expense/new-group", this.groupInfoRequest
-      ).then(response => {
-        alert("Grupi loomine õnnestus")
-        this.roleId = response.data
-        console.log(response.data)
-      }).catch(error => {
-        alert("Grupi loomine ei õnnestunud")
-        console.log(error)
-      })
-    },
-
     getStudentBalanceById: function (studentId) {
 
       this.$http.get("/user/student-balance", {
@@ -222,22 +196,6 @@ export default {
         console.log(response.data.firstName)
       }).catch(error => {
         alert("Ei õnnestunud")
-        console.log(error)
-      })
-    },
-
-    getGroupByGroupName: function () {
-
-      this.$http.get("/user/group-by-name", {
-            params: {
-              groupName: this.groupName
-            }
-          }
-      ).then(response => {
-        this.group = response.data
-        alert("sain grupi info")
-        console.log(response.data)
-      }).catch(error => {
         console.log(error)
       })
     },

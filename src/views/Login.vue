@@ -53,13 +53,14 @@ export default {
         this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
-
-        if (this.userRoleId == 4) {
-          this.$router.push({name: 'moderatorRoute'})
-
-        } else {
-          this.$router.push({name: 'parentRoute'})
-        }
+        this.$router.push({name: 'userViewRoute'})
+        //
+        // if (this.userRoleId == 4) {
+        //   this.$router.push({name: 'moderatorRoute'})
+        //
+        // } else {
+        //   this.$router.push({name: 'parentRoute'})
+        // }
 
         // switch (this.userRoleId) {
         //   case "4":
