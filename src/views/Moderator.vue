@@ -22,9 +22,11 @@
     <br>
     <br>
     <br>
-    <button v-on:click="getYourGroup">Find your groups</button>
+
 
     <div v-if="groupListDiv">
+      <button v-on:click="getYourGroup">Find your groups</button>
+      <br>
       <input placeholder="Enter user id" v-model="userId "><br>
       <table class="table table-hover" style="width:auto" align="center" >
         <thead>
@@ -44,12 +46,13 @@
         </tr>
         </tbody>
       </table>
-
     </div>
 
 
-    <button v-on:click="getGroupStudents">Find group students</button>
+
     <div>
+      <button v-on:click="getGroupStudents">Find group students</button>
+      <br>
       <input placeholder="Enter user id" v-model="groupId "><br>
       <table class="table table-hover" style="width:auto" align="center" >
         <thead>
@@ -57,6 +60,7 @@
           <th scope="col">Eesnimi</th>
           <th scope="col">Perekonnanimi</th>
           <th scope="col">RAHA</th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -65,11 +69,36 @@
           <td>{{ student.lastName}}</td>
           <td>{{ student.studentBalanceAmount}}</td>
           <td>
+            <button v-on:click="removeStudentFromGroup(student.studentId)">Remove student from group</button>
           </td>
         </tr>
         </tbody>
       </table>
 
+    </div>
+
+    <div>
+      <button v-on:click="getRegisteredStudents">Find unregistered students</button>
+      <br>
+      <input placeholder="Enter user id" v-model="groupId "><br>
+      <table class="table table-hover" style="width:auto" align="center" >
+        <thead>
+        <tr >
+          <th scope="col">Eesnimi</th>
+          <th scope="col">Perekonnanimi</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="registeredStudent in registeredStudents" >
+          <td>{{ registeredStudent.firstName }}</td>
+          <td>{{ registeredStudent.lastName}}</td>
+          <td>
+            <button v-on:click="registerStudent(registeredStudent.studentId)">Register student to group</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
@@ -89,6 +118,8 @@ export default {
       studentId: 0,
       yourGroups: {},
       students: {},
+      registeredStudents: {},
+      registeredStudentList: [],
       groupListDiv: true
 
      }
@@ -123,6 +154,53 @@ export default {
         this.students = response.data
 
 
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+
+getRegisteredStudents: function () {
+  this.$http.get("/moderator/all-registered-students", {
+        params: {
+          groupId: this.groupId
+        }
+      }
+  ).then(response => {
+
+    this.registeredStudents = response.data
+
+    console.log(response.data)
+  }).catch(error => {
+    console.log(error)
+  })
+},
+
+    registerStudent: function (studentId) {
+      this.$http.get("/moderator/student-activation", {
+            params: {
+              id: studentId
+            }
+          }
+      ).then(response => {
+       alert("Tehtud")
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+
+
+    removeStudentFromGroup: function (studentId) {
+      this.$http.get("/moderator/student-deactivation", {
+            params: {
+              id: studentId,
+            }
+          }
+      ).then(response => {
+        alert("Tehtud")
         console.log(response.data)
       }).catch(error => {
         console.log(error)
