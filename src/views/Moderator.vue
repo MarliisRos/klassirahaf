@@ -48,6 +48,30 @@
     </div>
 
 
+    <button v-on:click="getGroupStudents">Find group students</button>
+    <div>
+      <input placeholder="Enter user id" v-model="groupId "><br>
+      <table class="table table-hover" style="width:auto" align="center" >
+        <thead>
+        <tr >
+          <th scope="col">Eesnimi</th>
+          <th scope="col">Perekonnanimi</th>
+          <th scope="col">RAHA</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="student in students" >
+          <td>{{ student.firstName }}</td>
+          <td>{{ student.lastName}}</td>
+          <td>{{ student.studentBalanceAmount}}</td>
+          <td>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
   </div>
 
 
@@ -64,6 +88,7 @@ export default {
       // userId: sessionStorage.getItem('userId'),
       studentId: 0,
       yourGroups: {},
+      students: {},
       groupListDiv: true
 
      }
@@ -72,7 +97,6 @@ export default {
   methods: {
 
     getYourGroup: function () {
-
         this.$http.get("/expense/group-by-user-id", {
           params: {
             userId: this.userId,
@@ -86,6 +110,23 @@ export default {
             }).catch(error => {
           console.log(error)
         })
+    },
+
+    getGroupStudents: function () {
+      this.$http.get("/moderator/all-students", {
+            params: {
+              groupId: this.groupId
+            }
+          }
+      ).then(response => {
+
+        this.students = response.data
+
+
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     },
 
     getAllStudentsByGroupId: function () {
