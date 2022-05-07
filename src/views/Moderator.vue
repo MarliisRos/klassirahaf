@@ -78,6 +78,8 @@
     </div>
 
     <div>
+
+
       <button v-on:click="getRegisteredStudents">Find unregistered students</button>
       <br>
       <input placeholder="Enter user id" v-model="groupId "><br>
@@ -94,9 +96,16 @@
           <td>{{ registeredStudent.firstName }}</td>
           <td>{{ registeredStudent.lastName}}</td>
           <td>
+
+<!--            <input  type="checkbox" name="" id=""  v-model="registeredStudent.selected" >-->
+
             <button v-on:click="registerStudent(registeredStudent.studentId)">Register student to group</button>
           </td>
+<!--          {{registeredStudent}}-->
+
         </tr>
+<!--        <button v-on:click="registerStudents(registeredStudents)">Register students to group</button>-->
+<!--        {{registeredStudents}}-->
         </tbody>
       </table>
     </div>
@@ -118,7 +127,7 @@ export default {
       studentId: 0,
       yourGroups: {},
       students: {},
-      registeredStudents: {},
+      registeredStudents: [],
       registeredStudentList: [],
       groupListDiv: true
 
@@ -191,6 +200,23 @@ getRegisteredStudents: function () {
         console.log(error)
       })
     },
+
+
+    // registerStudents: function (registeredStudents) {
+    //
+    //   this.$http.post("/moderator/students-activation", {
+    //         params: {
+    //           list: registeredStudents,
+    //         }
+    //       }
+    //   ).then(response => {
+    //     alert("Tehtud")
+    //     console.log(response.data)
+    //     this.getRegisteredStudents()
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // },
 
 
 
