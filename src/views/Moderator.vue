@@ -186,6 +186,7 @@ getRegisteredStudents: function () {
       ).then(response => {
        alert("Tehtud")
         console.log(response.data)
+        this.getRegisteredStudents()
       }).catch(error => {
         console.log(error)
       })
@@ -202,6 +203,7 @@ getRegisteredStudents: function () {
       ).then(response => {
         alert("Tehtud")
         console.log(response.data)
+        this.getGroupStudents()
       }).catch(error => {
         console.log(error)
       })
