@@ -25,9 +25,14 @@
 
 
     <div v-if="groupListDiv">
+      <h2> Find groups by by user Id</h2>
+      <br>
       <button v-on:click="getYourGroup">Find your groups</button>
       <br>
-      <input placeholder="Enter user id" v-model="userId "><br>
+      <br>
+      <input placeholder="Enter user id" v-model="userId ">
+      <br>
+      <br>
       <table class="table table-hover" style="width:auto" align="center" >
         <thead>
         <tr >
@@ -47,13 +52,21 @@
         </tbody>
       </table>
     </div>
-
+    <br>
+    <br>
+    <br>
 
 
     <div>
+      <h2> Find students by group id/remove students from group</h2>
+      <br>
+      <br>
       <button v-on:click="getGroupStudents">Find group students</button>
       <br>
-      <input placeholder="Enter user id" v-model="groupId "><br>
+      <br>
+      <input placeholder="Enter group id" v-model="groupId ">
+      <br>
+      <br>
       <table class="table table-hover" style="width:auto" align="center" >
         <thead>
         <tr >
@@ -64,7 +77,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="student in students" >
+        <tr v-for="student in groupStudents" >
           <td>{{ student.firstName }}</td>
           <td>{{ student.lastName}}</td>
           <td>{{ student.studentBalanceAmount}}</td>
@@ -76,13 +89,20 @@
       </table>
 
     </div>
-
+    <br>
+    <br>
+    <br>
     <div>
-
-
-      <button v-on:click="getRegisteredStudents">Find unregistered students</button>
+      <h2> Find registered students by group id/register(activate) students (button for each student or checkboxes???)</h2>
       <br>
-      <input placeholder="Enter user id" v-model="groupId "><br>
+      <br>
+
+      <button v-on:click="getRegisteredStudents">Find registered students</button>
+      <br>
+      <br>
+      <input placeholder="Enter group id" v-model="groupId ">
+      <br>
+      <br>
       <table class="table table-hover" style="width:auto" align="center" >
         <thead>
         <tr >
@@ -97,17 +117,92 @@
           <td>{{ registeredStudent.lastName}}</td>
           <td>
 
-<!--            <input  type="checkbox" name="" id=""  v-model="registeredStudent.selected" >-->
-
+            <input  type="checkbox" name="" id="registeredStudent"  v-model="registeredStudent.selected" >
+<br>
             <button v-on:click="registerStudent(registeredStudent.studentId)">Register student to group</button>
-          </td>
-<!--          {{registeredStudent}}-->
 
+          </td>
+          {{registeredStudent}}
+          <br>
+          <br>
         </tr>
-<!--        <button v-on:click="registerStudents(registeredStudents)">Register students to group</button>-->
-<!--        {{registeredStudents}}-->
+        <button v-on:click="registerStudents()">Register students to group</button>
+        <br>
+        {{registeredStudents}}
         </tbody>
       </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+
+      <h2> Add money to student (by studentId)</h2>
+      <br>
+      <br>
+      <input placeholder="Enter student id" v-model="studentId ">
+      <br>
+      <br>
+<!--      <input placeholder="Enter amount" v-model="amount"><br>-->
+      <input type="number" v-model="amount" name="" id="amount">
+      <br>
+      <br>
+      <button v-on:click="addMoneyToStudent()">Add money to student</button>
+      <br>
+      {{studentId}}
+      {{amount}}
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div>
+      <h2> Add new expense (groupId)</h2>
+      <br>
+      <br>
+      <input placeholder="Expense name" v-model="expenseRequest.name ">
+      <br>
+      <br>
+      <input placeholder="Expense description" v-model="expenseRequest.description ">
+      <br>
+      <br>
+      <input type="number" v-model="expenseRequest.amount" name="" id="">
+      <br>
+      <br>
+      <div>
+
+        <button v-on:click="getGroupStudents">Show all group students students</button>
+        <br>
+        <br>
+        <input placeholder="Enter group id" v-model="groupId "><br>
+        <table class="table table-hover" style="width:auto" align="center" >
+          <thead>
+          <tr >
+            <th scope="col">Eesnimi</th>
+            <th scope="col">Perekonnanimi</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="student in groupStudents" >
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName}}</td>
+            <td>
+              <input  type="checkbox" name="" v-model="expenseRequest.students" v-bind:value="student" >
+            </td>
+          </tr>
+          <button v-on:click="addNewExpense()">Register new expense</button>
+          <br>
+          <br>
+          {{groupStudents}}
+          <br>
+          <br>
+          {{expenseRequest}}
+          </tbody>
+        </table>
+
+      </div>
     </div>
 
   </div>
@@ -122,14 +217,35 @@ export default {
 
     return {
       groupId: 0,
+      amount: null,
       userId:0,
       // userId: sessionStorage.getItem('userId'),
       studentId: 0,
       yourGroups: {},
-      students: {},
-      registeredStudents: [],
+      groupStudents: {},
+      registeredStudents: {},
       registeredStudentList: [],
-      groupListDiv: true
+      studentList: [],
+      groupListDiv: true,
+      expenseRequest: {
+        groupId: 1,
+        name: '',
+        description: '',
+        amount: 0,
+        students: []
+        // this.studentList
+        //     {
+        //   studentId: this.studentId,
+        //   firstName: '',
+        //   lastName: '',
+        //   groupBalanceAmount: null,
+        //   studentBalanceAmount:null,
+        //   active:false,
+        //   selected: false
+        // }
+      }
+
+
 
      }
   },
@@ -160,7 +276,7 @@ export default {
           }
       ).then(response => {
 
-        this.students = response.data
+        this.groupStudents = response.data
 
 
         console.log(response.data)
@@ -201,22 +317,61 @@ getRegisteredStudents: function () {
       })
     },
 
+    addMoneyToStudent: function () {
+      // ALTERNATIVE
+      // let someDtoObject = {
+      //   firstName: this.firstName,
+      //   lastName: this.lastName,
+      //   idCode: this.idCode
+      // }
 
-    // registerStudents: function (registeredStudents) {
-    //
-    //   this.$http.post("/moderator/students-activation", {
-    //         params: {
-    //           list: registeredStudents,
-    //         }
-    //       }
-    //   ).then(response => {
-    //     alert("Tehtud")
-    //     console.log(response.data)
-    //     this.getRegisteredStudents()
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // },
+
+
+
+      // if using alternative then remove "this." from someDtoObject
+      this.$http.post("/moderator/money-deposit",  {
+              studentId: this.studentId,
+              amount:  this.amount
+            }
+
+
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    addNewExpense: function () {
+      // ALTERNATIVE
+      // let someDtoObject = {
+      //   firstName: this.firstName,
+      //   lastName: this.lastName,
+      //   idCode: this.idCode
+      // }
+
+      // if using alternative then remove "this." from someDtoObject
+      this.$http.post("/moderator/new-expense", this.expenseRequest
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    registerStudents: function () {
+
+      this.$http.post("/moderator/students-activation", this.registeredStudents,
+
+
+      ).then(response => {
+        alert("Tehtud")
+        console.log(response.data)
+        this.getRegisteredStudents()
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
 
 
