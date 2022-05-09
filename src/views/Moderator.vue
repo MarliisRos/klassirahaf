@@ -83,9 +83,14 @@
           <td>{{ student.lastName }}</td>
           <td>{{ student.studentBalanceAmount }}</td>
           <td>
-            <button v-on:click="removeStudentFromGroup(student.studentId)">Remove student from group</button>
+            <input type="checkbox" name="" id="groupStudents" v-model="student.selected">
+            <br>
+<!--            <button v-on:click="removeStudentFromGroup(student.studentId)">Remove student from group</button>-->
           </td>
         </tr>
+        <button v-on:click="removeStudentsFromGroup()">Remove students from group</button>
+        <br>
+        {{groupStudents}}
         </tbody>
       </table>
 
@@ -94,8 +99,7 @@
     <br>
     <br>
     <div>
-      <h2> Find registered students by group id/register(activate) students (button for each student or
-        checkboxes???)</h2>
+      <h2> Find registered students by group id/register(activate) students </h2>
       <br>
       <br>
 
@@ -118,11 +122,9 @@
           <td>{{ registeredStudent.firstName }}</td>
           <td>{{ registeredStudent.lastName }}</td>
           <td>
-
             <input type="checkbox" name="" id="registeredStudent" v-model="registeredStudent.selected">
             <br>
-            <button v-on:click="registerStudent(registeredStudent.studentId)">Register student to group</button>
-
+<!--            <button v-on:click="registerStudent(registeredStudent.studentId)">Register student to group</button>-->
           </td>
           {{ registeredStudent }}
           <br>
@@ -226,6 +228,7 @@ export default {
       yourGroups: {},
       groupStudents: {},
       registeredStudents: {},
+      studentsToRemove: {},
       registeredStudentList: [],
       studentList: [],
       groupListDiv: true,
@@ -235,19 +238,8 @@ export default {
         description: '',
         amount: 0,
         students: []
-        // this.studentList
-        //     {
-        //   studentId: this.studentId,
-        //   firstName: '',
-        //   lastName: '',
-        //   groupBalanceAmount: null,
-        //   studentBalanceAmount:null,
-        //   active:false,
-        //   selected: false
-        // }
-      }
 
-
+    }
     }
   },
 
@@ -344,14 +336,6 @@ export default {
 
 
     addNewExpense: function () {
-      // ALTERNATIVE
-      // let someDtoObject = {
-      //   firstName: this.firstName,
-      //   lastName: this.lastName,
-      //   idCode: this.idCode
-      // }
-
-      // if using alternative then remove "this." from someDtoObject
       this.$http.post("/moderator/new-expense", this.expenseRequest
       ).then(response => {
         console.log(response.data)
@@ -361,13 +345,23 @@ export default {
     },
 
     registerStudents: function () {
-
       this.$http.post("/moderator/students-activation", this.registeredStudents,
       ).then(response => {
         alert("Tehtud")
         console.log(response.data)
         this.getRegisteredStudents()
 
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    removeStudentsFromGroup: function () {
+      this.$http.post("/moderator/students-deactivation", this.groupStudents,
+      ).then(response => {
+        alert("Tehtud")
+        console.log(response.data)
+        this.getGroupStudents()
       }).catch(error => {
         console.log(error)
       })
