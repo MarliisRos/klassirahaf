@@ -344,8 +344,8 @@ export default {
       })
     },
 
-    registerStudents: function () {
-      this.$http.post("/moderator/students-activation", this.registeredStudents,
+    registerStudents: async function () {
+      await this.$http.post("/moderator/students-activation", this.registeredStudents,
       ).then(response => {
         alert("Tehtud")
         console.log(response.data)
@@ -356,8 +356,8 @@ export default {
       })
     },
 
-    removeStudentsFromGroup: function () {
-      this.$http.post("/moderator/students-deactivation", this.groupStudents,
+    removeStudentsFromGroup: async function () {
+     await this.$http.post("/moderator/students-deactivation", this.groupStudents,
       ).then(response => {
         alert("Tehtud")
         console.log(response.data)
