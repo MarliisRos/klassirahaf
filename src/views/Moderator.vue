@@ -11,7 +11,7 @@
     <br>
 
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="alignment: center">
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 420px">
       <li class="nav-item">
         <a class="nav-link active" id="groupStud-tab" data-toggle="tab" href="#groupStud" role="tab" aria-controls="groupStud" aria-selected="true">Sinu gruppi õpilased</a>
       </li>
@@ -39,13 +39,30 @@
             <input type="number" v-model="amount" name="" id="amount">
             <br>
             <br>
-            <button v-on:click="addMoneyToStudent()">Lisa raha</button>
+            <button v-on:click="addMoneyToStudent()" class="btn btn-light">Lisa raha</button>
             <br>
             <br>
-            <button v-on:click="addMoneyDiv = false">Pane aken kinni</button>
+            <button v-on:click="addMoneyDiv = false" class="btn btn-light">Pane aken kinni</button>
             <br>
           </div>
         </div>
+        </div>
+
+        <div style="margin-left: 530px" >
+          <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
+            <div class="card-header">Vanemate andmed</div>
+            <div class="card-body">
+              <h4 class="card-title">
+                {{'Eesnimi: '}}{{this.firstName}}
+                {{'Perekonnanimi: '}}{{this.lastName}}
+                {{'E-mail: '}}{{this.email}}
+                {{'Tel: '}}{{this.tel}}
+                {{'Pangakonto nr: '}}{{this.accountNumber}}
+              </h4>
+              <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
+              <br>
+            </div>
+          </div>
         </div>
 
         <table class="table table-hover" style="width: fit-content" align="center" >
@@ -65,11 +82,11 @@
             <td>{{ student.lastName }}</td>
             <td>{{ student.studentBalanceAmount }}</td>
             <td>
-              <button v-on:click="toAddMoneyDiv(student.studentId)"  >Lisa raha</button>
+              <button v-on:click="toAddMoneyDiv(student.studentId)" class="btn btn-secondary" >Lisa raha</button>
 
             </td>
             <td>
-              <button >Kontaktandmed</button>
+              <button v-on:click="toContactDiv(student.studentId)" class="btn btn-secondary" >Kontaktandmed</button>
             </td>
             <td>
               <input type="checkbox" name="" id="groupStudents" v-model="student.selected">
@@ -79,7 +96,7 @@
 
           </tbody>
         </table>
-        <button v-on:click="removeStudentsFromGroup()" style="margin-left: 660px" >Eemalda gruppist</button>
+        <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="margin-left: 660px" >Eemalda gruppist</button>
         <br>
       </div>
 
@@ -174,36 +191,10 @@
       </div>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h2> Get students by group Id</h2>
-    <input placeholder="Enter Group id" v-model="groupId"><br>
-    <button v-on:click="getAllStudentsByGroupId">Enter</button>
-    <br>
-    <br>
-    <br>
-
-    <h2> Get contact info by user Id</h2>
-    <input placeholder="Enter user id" v-model="userId "><br>
-    <button v-on:click="getUserContactByUserId">Enter</button>
-    <br>
-    <br>
-    <br>
 
     <h2> Get contact info by student Id</h2>
     <input placeholder="Enter student id" v-model="studentId "><br>
     <button v-on:click="getUserContactByStudentId">Enter</button>
-    <br>
     <br>
     <br>
 
@@ -255,6 +246,7 @@ export default {
 
     return {
       addMoneyDiv: false,
+      contactDiv: false,
       groupStudents: {},
       registeredStudents: {},
       groupId: sessionStorage.getItem('groupId'),
@@ -266,6 +258,11 @@ export default {
       registeredStudentList: [],
       studentList: [],
       groupListDiv: true,
+      accountNumber: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      tel: '',
       expenseRequest: {
         groupId: sessionStorage.getItem('studentId'),
         name: '',
@@ -281,6 +278,12 @@ export default {
     toAddMoneyDiv:  function (studentId) {
       this.addMoneyDiv = true
       sessionStorage.setItem('studentId', studentId)
+    },
+
+    toContactDiv: function (studentId) {
+      this.contactDiv = true
+      sessionStorage.setItem('studentId', studentId)
+      this.getUserContactByStudentId()
     },
 
     getYourGroup: function () {
@@ -378,45 +381,20 @@ export default {
     },
 
 
-    getAllStudentsByGroupId: function () {
-      this.$http.get("/moderator/all-students", {
-            params: {
-              groupId: this.groupId,
-            }
-          }
-      ).then(response => {
-        alert("Õnnestus")
-        console.log(response.data)
-      }).catch(error => {
-        alert("Ei õnnestunud")
-        console.log(error)
-      })
-    },
-
-    getUserContactByUserId: function () {
-      this.$http.get("/moderator/user-contact-info", {
-            params: {
-              userId: this.userId,
-            }
-          }
-      ).then(response => {
-        alert("Õnnestus")
-        console.log(response.data)
-      }).catch(error => {
-        alert("Ei õnnestunud")
-        console.log(error)
-      })
-    },
-
     getUserContactByStudentId: function () {
       this.$http.get("/moderator/user-contact-by-student-id", {
             params: {
-              studentId: this.studentId,
+              studentId: sessionStorage.getItem('studentId'),
             }
           }
       ).then(response => {
-        alert("Õnnestus")
-        console.log(response.data)
+        this.firstName = response.data.firstName
+        this.lastName = response.data.lastName
+        this.accountNumber = response.data.accountNumber
+        this.email = response.data.email
+        this.tel = response.data.tel
+        sessionStorage.removeItem('studentId')
+        this.getGroupStudents()
       }).catch(error => {
         alert("Ei õnnestunud")
         console.log(error)
