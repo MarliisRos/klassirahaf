@@ -50,15 +50,23 @@
 
         <div style="margin-left: 530px" >
           <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
-            <div class="card-header">Vanemate andmed</div>
+            <div class="card-header">{{this.studentFirstName}}Vanemate andmed</div>
             <div class="card-body">
-              <h4 class="card-title">
+              <h7 class="card-title">
                 {{'Eesnimi: '}}{{this.firstName}}
+                <br>
                 {{'Perekonnanimi: '}}{{this.lastName}}
+                <br>
                 {{'E-mail: '}}{{this.email}}
+                <br>
                 {{'Tel: '}}{{this.tel}}
+                <br>
                 {{'Pangakonto nr: '}}{{this.accountNumber}}
-              </h4>
+                <br>
+                {{this.studentFirstName}}
+                {{this.studentLastName}}
+              </h7>
+              <br>
               <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
               <br>
             </div>
@@ -78,19 +86,20 @@
           </thead>
           <tbody>
           <tr v-for="student in groupStudents">
-            <td>{{ student.firstName }}</td>
-            <td>{{ student.lastName }}</td>
+            <td >{{ student.firstName }}</td>
+            <td >{{ student.lastName }}</td>
             <td>{{ student.studentBalanceAmount }}</td>
             <td>
               <button v-on:click="toAddMoneyDiv(student.studentId)" class="btn btn-secondary" >Lisa raha</button>
 
             </td>
             <td>
-              <button v-on:click="toContactDiv(student.studentId)" class="btn btn-secondary" >Kontaktandmed</button>
+              <button v-on:click="toContactDiv(student)" class="btn btn-secondary" >Kontaktandmed</button>
             </td>
             <td>
               <input type="checkbox" name="" id="groupStudents" v-model="student.selected">
               <br>
+
             </td>
           </tr>
 
@@ -98,6 +107,10 @@
         </table>
         <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="margin-left: 660px" >Eemalda gruppist</button>
         <br>
+        <br>
+        <br>
+        <br>
+
       </div>
 
 
@@ -123,7 +136,6 @@
             <td>
               <input type="checkbox" name=""  v-model="registeredStudent.selected">
               <br>
-              <!--            <button v-on:click="registerStudent(registeredStudent.studentId)">Register student to group</button>-->
             </td>
             {{ registeredStudent }}
             <br>
@@ -248,6 +260,9 @@ export default {
       addMoneyDiv: false,
       contactDiv: false,
       groupStudents: {},
+      studentFirstName: sessionStorage.getItem('studentFirstName'),
+      studentLastName: '',
+      studentInfo: {},
       registeredStudents: {},
       groupId: sessionStorage.getItem('groupId'),
       userId: sessionStorage.getItem('userId'),
@@ -280,9 +295,12 @@ export default {
       sessionStorage.setItem('studentId', studentId)
     },
 
-    toContactDiv: function (studentId) {
+    toContactDiv: function (student) {
+      console.log(student)
       this.contactDiv = true
-      sessionStorage.setItem('studentId', studentId)
+      sessionStorage.setItem('studentFirstName', student.firstName)
+      this.lastName = student.lastName
+      sessionStorage.setItem('studentId', student.studentId)
       this.getUserContactByStudentId()
     },
 
