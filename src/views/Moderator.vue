@@ -10,19 +10,21 @@
     </div>
     <br>
 
+    <button v-on:click="getGroupStudents" style="margin-left: 660px" >nupp</button>
+
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="alignment: center">
       <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#groupStudent" role="tab" aria-controls="groupStudent" aria-selected="true">Sinu gruppi õpilased</a>
+        <a class="nav-link active" id="groupStud-tab" data-toggle="tab" href="#groupStud" role="tab" aria-controls="groupStud" aria-selected="true">Sinu gruppi õpilased</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#registeredStudents" role="tab" aria-controls="registeredStudents" aria-selected="false">Registreeritud õpilased</a>
+        <a class="nav-link" id="regStud-tab" data-toggle="tab" href="#regStud" role="tab" aria-controls="regStud" aria-selected="false">Registreeritud õpilased</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#addExpense" role="tab" aria-controls="addExpense" aria-selected="false">Kulude lisamine</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent" >
-      <div class="tab-pane fade show active" id="groupStudent" role="tabpanel" aria-labelledby="groupStudent-tab">
+      <div class="tab-pane fade show active" id="groupStud" role="tabpanel" aria-labelledby="groupStud-tab">
         <br>
         <h5 class="card-title">Sinu gruppi õpilased</h5>
         <p class="card-text">Vali õpilased keda tahad gruppist eemaldada</p>
@@ -68,7 +70,7 @@
 
             </td>
             <td>
-              <button v-on:click="removeStudentsFromGroup()">Kontaktandmed</button>
+<!--              <button >Kontaktandmed</button>-->
             </td>
             <td>
               <input type="checkbox" name="" id="groupStudents" v-model="student.selected">
@@ -78,12 +80,12 @@
 
           </tbody>
         </table>
-
+      {{groupStudents}}
         <button v-on:click="removeStudentsFromGroup()" style="margin-left: 660px" >Eemalda gruppist</button>
         <br>
       </div>
 
-      <div class="tab-pane fade" id="registeredStudents" role="tabpanel" aria-labelledby="registeredStudents-tab">
+      <div class="tab-pane fade" id="regStud" role="tabpanel" aria-labelledby="regStud-tab">
         <br>
       <h5 class="card-title">Õpilased, kes on registreeritud Teie gruppi</h5>
       <p class="card-text">Valige õpilasi keda tahate lisada oma gruppi</p>
@@ -91,10 +93,10 @@
         <button v-on:click="getRegisteredStudents">Find registered students</button>
         <br>
         <br>
-        <input placeholder="Enter group id" v-model="groupId ">
+<!--        <input placeholder="Enter group id" v-model="groupId ">-->
         <br>
         <br>
-        <table class="table table-hover" style="width:auto" align="center">
+        <table class="table table-hover">
           <thead>
           <tr>
             <th scope="col">Eesnimi</th>
@@ -220,7 +222,7 @@
       <input placeholder="Enter user id" v-model="userId ">
       <br>
       <br>
-      <table class="table table-hover" style="width:auto" align="center">
+      <table class="table table-hover">
         <thead>
         <tr>
           <th scope="col">Group name</th>
@@ -412,12 +414,12 @@ export default {
 
     return {
       addMoneyDiv: false,
+      groupStudents: {},
+      registeredStudents: {},
       groupId: sessionStorage.getItem('groupId'),
       userId: sessionStorage.getItem('userId'),
       studentId: sessionStorage.getItem('studentId'),
       yourGroups: {},
-      groupStudents: {},
-      registeredStudents: {},
       studentsToRemove: {},
       amount: null,
       registeredStudentList: [],
@@ -440,21 +442,21 @@ export default {
       this.addMoneyDiv = true
     },
 
-    // getYourGroup: function () {
-    //   this.$http.get("/expense/group-by-user-id", {
-    //         params: {
-    //           userId: this.userId,
-    //         }
-    //       }
-    //   ).then(response => {
-    //     this.yourGroups = response.data
-    //     this.groupId = response.data.groupId
-    //     sessionStorage.setItem('groupId', response.data.groupId)
-    //     console.log(response.data)
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // },
+    getYourGroup: function () {
+      this.$http.get("/expense/group-by-user-id", {
+            params: {
+              userId: this.userId,
+            }
+          }
+      ).then(response => {
+        this.yourGroups = response.data
+        this.groupId = response.data.groupId
+        sessionStorage.setItem('groupId', response.data.groupId)
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
     getGroupStudents: function () {
       this.$http.get("/moderator/all-students", {
@@ -466,6 +468,7 @@ export default {
         this.groupStudents = response.data
         console.log(response.data)
       }).catch(error => {
+        console.log(error)
       })
     },
 
@@ -547,20 +550,20 @@ export default {
       })
     },
 
-    // removeStudentFromGroup: function (studentId) {
-    //   this.$http.get("/moderator/student-deactivation", {
-    //         params: {
-    //           id: studentId,
-    //         }
-    //       }
-    //   ).then(response => {
-    //     alert("Tehtud")
-    //     console.log(response.data)
-    //     this.getGroupStudents()
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // },
+    removeStudentFromGroup: function (studentId) {
+      this.$http.get("/moderator/student-deactivation", {
+            params: {
+              id: studentId,
+            }
+          }
+      ).then(response => {
+        alert("Tehtud")
+        console.log(response.data)
+        this.getGroupStudents()
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
     getAllStudentsByGroupId: function () {
       this.$http.get("/moderator/all-students", {
@@ -577,20 +580,20 @@ export default {
       })
     },
 
-    // getUserContactByUserId: function () {
-    //   this.$http.get("/moderator/user-contact-info", {
-    //         params: {
-    //           userId: this.userId,
-    //         }
-    //       }
-    //   ).then(response => {
-    //     alert("Õnnestus")
-    //     console.log(response.data)
-    //   }).catch(error => {
-    //     alert("Ei õnnestunud")
-    //     console.log(error)
-    //   })
-    // },
+    getUserContactByUserId: function () {
+      this.$http.get("/moderator/user-contact-info", {
+            params: {
+              userId: this.userId,
+            }
+          }
+      ).then(response => {
+        alert("Õnnestus")
+        console.log(response.data)
+      }).catch(error => {
+        alert("Ei õnnestunud")
+        console.log(error)
+      })
+    },
 
     getUserContactByStudentId: function () {
       this.$http.get("/moderator/user-contact-by-student-id", {
