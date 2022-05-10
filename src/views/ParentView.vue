@@ -1,22 +1,18 @@
 <template>
 
   <div>
-
-
-    <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
-    <input placeholder="Description" v-model="groupInfoRequest.description"><br>
-    <button v-on:click="createNewGroup">Create new gruop</button>
+    <h1>Add new student to group</h1>
+    <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
+    <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
+    <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth"><br>
+    <button v-on:click="addNewStudent">Add new student</button><br>
     <br>
     <br>
-
-    <input placeholder="Group name" v-model="groupName"><br>
-    <button v-on:click="getGroupByGroupName">Find Group by name</button>
     <br>
     <br>
-
 
     <input placeholder="StudentId" v-model="id"><br>
-    <button v-on:click="getStudentBalanceById">Get student balance info</button>
+    <button v-on:click="getStudentBalanceById">Get student balance info</button><br>
     <br>
     <br>
     <br>
@@ -26,6 +22,12 @@
     <br>
     <input placeholder="Get student balance log by student id" v-model="studentId"><br>
     <button v-on:click="getStudentBalanceLogByStudentId">Get student balance log by student id</button>
+
+
+    <input placeholder="Student" v-model="id"><br>
+    <button v-on:click="getStudentBalanceById">Add student to group</button>
+
+
 
     <div v-if="studentBalanceLogTable">
 
@@ -153,6 +155,11 @@ export default {
       tableDIV: false,
       tableDIV2: true,
       studentBalanceLogTable: false,
+      date: new Date(),
+      newStudentInfo: {
+        groupInfoId: sessionStorage.getItem('groupId'),
+        parentUserId: sessionStorage.getItem('userId'),
+      },
       studentId: 0,
       id: 0,
       groupName: "",
@@ -177,19 +184,6 @@ export default {
 
   methods: {
 
-    createNewGroup: function () {
-
-      this.$http.post("/expense/new-group", this.groupInfoRequest
-      ).then(response => {
-        alert("Grupi loomine õnnestus")
-        this.roleId = response.data
-        console.log(response.data)
-      }).catch(error => {
-        alert("Grupi loomine ei õnnestunud")
-        console.log(error)
-      })
-    },
-
     getStudentBalanceById: function (studentId) {
 
       this.$http.get("/user/student-balance", {
@@ -202,6 +196,19 @@ export default {
         this.tableDIV2 = true
         console.log(response.data)
       }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    addNewStudent: function () {
+
+      this.$http.post("/user/new-student", this.newStudentInfo
+      ).then(response => {
+        alert("õpilase loomine õnnestus")
+        this.$router.push({name: 'userViewRoute'})
+        console.log(response.data)
+      }).catch(error => {
+        alert("Kasutaja loomine ei õnnestunud")
         console.log(error)
       })
     },
@@ -226,22 +233,6 @@ export default {
       })
     },
 
-    getGroupByGroupName: function () {
-
-      this.$http.get("/user/group-by-name", {
-            params: {
-              groupName: this.groupName
-            }
-          }
-      ).then(response => {
-        this.group = response.data
-        alert("sain grupi info")
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-
     getStudentBalanceLogByStudentId: function (studentId) {
 
       this.$http.get("/user/student-balance-log/student-id", {
@@ -261,8 +252,33 @@ export default {
     },
 
 
+  },
+
+  getYourGroup: function () {
+
+    this.$http.get("/expense/group-by-user-id", {
+          params: {
+            userId: this.userId,
+          }
+        }
+    ).then(response => {
+      this.yourGroups = response.data
+      this.groupId = response.data.groupId
+      sessionStorage.setItem('groupId', response.data.groupId)
+      console.log(response.data)
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+
+
+  mounted() {
+    this.getYourGroup()
   }
 }
+
+
+
 
 
 </script>

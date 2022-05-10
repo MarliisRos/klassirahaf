@@ -5,6 +5,7 @@ import Login from "@/views/Login";
 import Moderator from "@/views/Moderator";
 import RegisterView from "@/views/RegisterView";
 import ParentView from "@/views/ParentView";
+import UserView from "@/views/UserView";
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,12 @@ const routes = [
         path: '/',
         name: 'homeRoute',
         component: HomeView
+    },
+
+    {
+        path: '/user',
+        name: 'userViewRoute',
+        component: UserView
     },
 
     {
