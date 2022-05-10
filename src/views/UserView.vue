@@ -9,14 +9,14 @@
     <br>
 
     <input placeholder="Group name" v-model="groupName"><br>
-    <button v-on:click="getGroupByGroupName">Find Group by name</button>
+    <button v-on:click="getGroupByGroupName">Find and join group</button>
     <br>
     <br>
 
-    <div v-if="foundGroupBoolean">
-      <input placeholder="Group name" v-model="groupName"><br>
-      <button v-on:click="joinGroup" type="button" name="btn" class="btn btn-secondary btn-sm m-3" >Join group</button>
-    </div>
+<!--    <div v-if="foundGroupBoolean">-->
+<!--      <input placeholder="Group name" v-model="groupName"><br>-->
+<!--      <button v-on:click="joinGroup" type="button" name="btn" class="btn btn-secondary btn-sm m-3" >Join group</button>-->
+<!--    </div>-->
 
     <br>
     <br>
@@ -132,24 +132,6 @@ export default {
       })
     },
 
-    getStudentByUserId: function () {
-
-      this.$http.get("/user/student-by-user-id", {
-            params: {
-              userId: this.userId
-            }
-          }
-      ).then(response => {
-        alert("Õnnestus")
-        this.students = response.data
-        this.tableDIV = true
-        console.log(response.data)
-      }).catch(error => {
-        alert("Ei õnnestunud")
-        console.log(error)
-      })
-    },
-
     getGroupByGroupName: function () {
 
       this.$http.get("/user/group-by-name", {
@@ -162,7 +144,7 @@ export default {
         alert("sain grupi info")
         this.groupId = response.data.groupId
         sessionStorage.setItem('groupId', response.data.groupId)
-        this.$router.push({name: 'parentRoute'})
+        // this.$router.push({name: 'parentRoute'})
 
         console.log(response.data)
       }).catch(error => {
@@ -187,10 +169,12 @@ export default {
           this.$router.push({name: 'moderatorRoute'})
           this.groupId = response.data.groupId
           sessionStorage.setItem('groupId', response.data.groupId)
-        } else {
+          console.log(response.data.isModerator)
+        } else if (!response.data.isModerator){
           this.$router.push({name: 'parentRoute'})
           this.groupId = response.data.groupId
           sessionStorage.setItem('groupId', response.data.groupId)
+          console.log(response.data.isModerator)
         }
         // console.log(response.data)
       }).catch(error => {
