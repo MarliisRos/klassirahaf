@@ -10,6 +10,13 @@
 
     <input placeholder="Group name" v-model="groupName"><br>
     <button v-on:click="getGroupByGroupName">Find Group by name</button>
+    <br>
+    <br>
+
+    <div v-if="foundGroupBoolean">
+      <input placeholder="Group name" v-model="groupName"><br>
+      <button v-on:click="joinGroup" type="button" name="btn" class="btn btn-secondary btn-sm m-3" >Join group</button>
+    </div>
 
     <br>
     <br>
@@ -32,7 +39,7 @@
           <td>{{ group.groupName }}</td>
           <td>{{ group.description }}</td>
           <td>
-            <button v-on:click="toGroupDiv" type="button" name="btn" class="btn btn-secondary btn-sm m-3">Vali grupp
+            <button v-on:click="selectGroup(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">Vali grupp
             </button>
           </td>
         </tr>
@@ -55,12 +62,14 @@ export default {
     return {
 
       groupId: 0,
+      foundGroupBoolean : false,
+      isModerator: false,
       yourGroups: {},
       groupListDiv: true,
       tableDIV: false,
       tableDIV2: true,
-      studentBalanceLogTable: false,
       userId: sessionStorage.getItem('userId'),
+      roleId: 0,
       studentId: 0,
       id: 0,
       groupName: "",
@@ -70,6 +79,7 @@ export default {
       studentBalanceLogs: {},
       balance: {},
       group: {},
+      groupByGroupId: {},
       newStudent: {
         groupInfoId: 0,
         parentUserId: 0,
@@ -84,10 +94,6 @@ export default {
         groupName: '',
         description: ''
       },
-
-      roleId: {},
-
-
     }
 
   },
@@ -117,7 +123,8 @@ export default {
       ).then(response => {
         alert("Grupi loomine õnnestus")
         this.roleId = response.data
-        this.$router.push({name: 'moderatorRoute'})
+        location.reload()
+        // this.$router.push({name: 'moderatorRoute'})
         console.log(response.data)
       }).catch(error => {
         alert("Grupi loomine ei õnnestunud")
@@ -153,16 +160,48 @@ export default {
       ).then(response => {
         this.group = response.data
         alert("sain grupi info")
+        this.groupId = response.data.groupId
+        sessionStorage.setItem('groupId', response.data.groupId)
+        this.$router.push({name: 'parentRoute'})
+
         console.log(response.data)
       }).catch(error => {
-        alert("Group with a name " + groupName + " not found!")
+        alert("Group with a name " + this.groupName + " not found!")
       })
     },
 
-    toGroupDiv: function () {
-      this.groupListDiv = false
+    selectGroup: function (groupId) {
+      this.$http.get("/expense/group-by-group-id", {
+        params: {
+          groupId: groupId,
+          userId: this.userId
+        }
+          }
+      ).then(response => {
+        this.group = response.data
+        // sessionStorage.setItem('groupId', response.data.groupId)
+        // sessionStorage.setItem('roleId', response.data.groupId)
+        // this.isModerator = response.data.isModerator
+
+        if (response.data.isModerator) {
+          this.$router.push({name: 'moderatorRoute'})
+          this.groupId = response.data.groupId
+          sessionStorage.setItem('groupId', response.data.groupId)
+        } else {
+          this.$router.push({name: 'parentRoute'})
+          this.groupId = response.data.groupId
+          sessionStorage.setItem('groupId', response.data.groupId)
+        }
+        // console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     },
 
+  },
+
+  foundGroup: function () {
+    this.foundGroupBoolean = true
   },
 
   mounted() {

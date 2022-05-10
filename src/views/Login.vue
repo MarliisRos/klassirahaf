@@ -68,7 +68,7 @@ export default {
 
     }
 ).catch(error => {
-  alert("Sisselogimine ei õnnestunud")
+  alert("Sisselogimine ei õnnestunud, vale parool või kasutajanimi")
   console.log(error)
 })
 },

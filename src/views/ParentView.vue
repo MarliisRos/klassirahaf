@@ -219,8 +219,33 @@ export default {
     },
 
 
+  },
+
+  getYourGroup: function () {
+
+    this.$http.get("/expense/group-by-user-id", {
+          params: {
+            userId: this.userId,
+          }
+        }
+    ).then(response => {
+      this.yourGroups = response.data
+      this.groupId = response.data.groupId
+      sessionStorage.setItem('groupId', response.data.groupId)
+      console.log(response.data)
+    }).catch(error => {
+      console.log(error)
+    })
+  },
+
+
+  mounted() {
+    this.getYourGroup()
   }
 }
+
+
+
 
 
 </script>
