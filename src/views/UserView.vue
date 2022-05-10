@@ -30,7 +30,7 @@
         <tr>
           <th scope="col">Group name</th>
           <th scope="col">Description</th>
-          <th scope="col">Description</th>
+          <th scope="col">Select group</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -144,7 +144,7 @@ export default {
         alert("sain grupi info")
         this.groupId = response.data.groupId
         sessionStorage.setItem('groupId', response.data.groupId)
-        // this.$router.push({name: 'parentRoute'})
+        this.$router.push({name: 'parentRoute'})
 
         console.log(response.data)
       }).catch(error => {

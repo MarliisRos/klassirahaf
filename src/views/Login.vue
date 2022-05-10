@@ -48,7 +48,6 @@ export default {
             }
           }
       ).then(response => {
-        alert("Sisselogimine õnnestus")
         this.userId = response.data.userId
         this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
