@@ -117,34 +117,55 @@
         <br>
       <h5 class="card-title">Õpilased, kes on registreeritud Teie gruppi</h5>
       <p class="card-text">Valige õpilasi keda tahate lisada oma gruppi</p>
+        <div style="margin-left: 530px" >
+          <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
+            <div class="card-header">{{this.studentFirstName}}{{' '}}{{this.studentLastName}}{{' '}}vanemate andmed</div>
+            <div class="card-body">
 
+              <h7 class="card-title">
+                {{'Eesnimi: '}}{{this.firstName}}
+                <br>
+                {{'Perekonnanimi: '}}{{this.lastName}}
+                <br>
+                {{'E-mail: '}}{{this.email}}
+                <br>
+                {{'Tel: '}}{{this.tel}}
+                <br>
+                {{'Pangakonto nr: '}}{{this.accountNumber}}
+                <br>
+              </h7>
+              <br>
+              <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
+              <br>
+            </div>
+          </div>
+        </div>
         <br>
-        <br>
-        <table class="table table-hover">
+        <table class="table table-hover" style="width: fit-content" align="center">
           <thead>
           <tr>
             <th scope="col">Eesnimi</th>
             <th scope="col">Perekonnanimi</th>
+            <th scope="col">Vanemate kontaktandmed</th>
             <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="registeredStudent in registeredStudents">
-            <td>{{ registeredStudent.firstName }}</td>
-            <td>{{ registeredStudent.lastName }}</td>
+          <tr v-for="student in registeredStudents">
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName }}</td>
             <td>
-              <input type="checkbox" name=""  v-model="registeredStudent.selected">
+              <button v-on:click="toContactDiv(student)" class="btn btn-secondary" >Kontaktandmed</button>
+            </td>
+            <td>
+              <input type="checkbox" name=""  v-model="student.selected">
               <br>
             </td>
-            {{ registeredStudent }}
-            <br>
-            <br>
           </tr>
-          <button v-on:click="registerStudents()">Register students to group</button>
-          <br>
-          {{ registeredStudents }}
+
           </tbody>
         </table>
+        <button v-on:click="registerStudents()" class="btn btn-success" style="margin-left: 310px">Registreeri õpilasi</button>
       </div>
 
       <div class="tab-pane fade" id="addExpense" role="tabpanel" aria-labelledby="addExpense-tab">
