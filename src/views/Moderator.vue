@@ -334,7 +334,7 @@ export default {
     },
 
     toParentView: function () {
-      this.$router.push({name: 'parentRoute'})
+      this.$router.push({name: 'userViewRoute'})
     },
 
     getGroupStudents: function () {
