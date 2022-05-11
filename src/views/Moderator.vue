@@ -33,7 +33,7 @@
 
         <div style="margin-left: 530px" >
         <div v-if="addMoneyDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
-          <div class="card-header">Raha lisamine õpilase bilanssi</div>
+          <div class="card-header">Raha lisamine{{' '}}  {{this.studentFirstName}}{{' '}}{{this.studentLastName}}{{' '}} bilanssi</div>
           <div class="card-body">
             <h5 class="card-title">Sisesta raha kogus</h5>
             <input type="number" v-model="amount" name="" id="amount">
@@ -50,8 +50,9 @@
 
         <div style="margin-left: 530px" >
           <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
-            <div class="card-header">{{this.studentFirstName}}Vanemate andmed</div>
+            <div class="card-header">{{this.studentFirstName}}{{' '}}{{this.studentLastName}}{{' '}}vanemate andmed</div>
             <div class="card-body">
+
               <h7 class="card-title">
                 {{'Eesnimi: '}}{{this.firstName}}
                 <br>
@@ -63,8 +64,6 @@
                 <br>
                 {{'Pangakonto nr: '}}{{this.accountNumber}}
                 <br>
-                {{this.studentFirstName}}
-                {{this.studentLastName}}
               </h7>
               <br>
               <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
@@ -90,7 +89,7 @@
             <td >{{ student.lastName }}</td>
             <td>{{ student.studentBalanceAmount }}</td>
             <td>
-              <button v-on:click="toAddMoneyDiv(student.studentId)" class="btn btn-secondary" >Lisa raha</button>
+              <button v-on:click="toAddMoneyDiv(student)" class="btn btn-secondary" >Lisa raha</button>
 
             </td>
             <td>
@@ -290,16 +289,17 @@ export default {
 
   methods: {
 
-    toAddMoneyDiv:  function (studentId) {
+    toAddMoneyDiv:  function (student) {
       this.addMoneyDiv = true
-      sessionStorage.setItem('studentId', studentId)
+      this.studentFirstName = student.firstName
+      this.studentLastName = student.lastName
+      sessionStorage.setItem('studentId', student.studentId)
     },
 
     toContactDiv: function (student) {
-      console.log(student)
-      this.contactDiv = true
-      sessionStorage.setItem('studentFirstName', student.firstName)
-      this.lastName = student.lastName
+     this.contactDiv = true
+      this.studentFirstName = student.firstName
+      this.studentLastName = student.lastName
       sessionStorage.setItem('studentId', student.studentId)
       this.getUserContactByStudentId()
     },
@@ -314,7 +314,6 @@ export default {
         this.yourGroups = response.data
         this.groupId = response.data.groupId
         sessionStorage.setItem('groupId', response.data.groupId)
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -328,7 +327,6 @@ export default {
           }
       ).then(response => {
         this.groupStudents = response.data
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -343,7 +341,6 @@ export default {
           }
       ).then(response => {
         this.registeredStudents = response.data
-        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -357,7 +354,6 @@ export default {
             amount: this.amount
           }}
       ). then( response =>  {
-        alert("Tehtud")
        sessionStorage.removeItem('studentId')
        this.getGroupStudents()
        this.addMoneyDiv = false
@@ -379,9 +375,8 @@ export default {
     registerStudents: async function () {
       await this.$http.post("/moderator/students-activation", this.registeredStudents,
       ).then(response => {
-        alert("Tehtud")
-        console.log(response.data)
         this.getRegisteredStudents()
+        this.getGroupStudents()
       }).catch(error => {
         console.log(error)
       })
@@ -390,9 +385,8 @@ export default {
     removeStudentsFromGroup: async function () {
      await this.$http.post("/moderator/students-deactivation", this.groupStudents,
       ).then(response => {
-        alert("Tehtud")
-        console.log(response.data)
         this.getGroupStudents()
+       this.getRegisteredStudents()
       }).catch(error => {
         console.log(error)
       })
