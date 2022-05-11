@@ -3,6 +3,8 @@
     <nav>
       <router-link to="/">Avaleht</router-link> |
       <router-link to="/login">Sisene</router-link> |
+      <router-link to="/register">Registreeru</router-link> |
+      <router-link to="/studentbalancelog">Kulutused student</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
     <router-view/>
@@ -31,3 +33,7 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>export default {
+  components: {}
+}
+</script>
