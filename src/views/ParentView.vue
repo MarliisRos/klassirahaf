@@ -30,7 +30,7 @@
         <td>{{ student.groupBalanceAmount }}</td>
 
         <td>
-          <button v-on:click="getStudentBalanceLogByStudentId(student.id)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
+          <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
             Show student balance log
           </button>
 <!--          <button v-on:click="getStudentExpenseLogByStudentId(student.id)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">-->
@@ -39,7 +39,7 @@
 <!--          <button v-on:click="selectGroup(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">-->
 <!--            Show group balance log-->
 <!--          </button>-->
-          <button v-on:click="getGroupExpenseLogByGroupId(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
+          <button v-on:click="getGroupExpenses()" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
             Group expense log
           </button>
         </td>
@@ -68,11 +68,6 @@
           <td>{{ studentBalanceLog.type }}</td>
           <td>{{ studentBalanceLog.dateTime }}</td>
 
-          <td>
-            <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" className="btn btn-warning">Show
-              student balance log
-            </button>
-          </td>
         </tr>
 
 
@@ -81,79 +76,27 @@
 
     </div>
 
-<!--    <div v-if="studentExpenseLogTable">-->
 
-<!--      <table class="table table-hover" style="width:auto" align="center">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--          <th scope="col">Transfer name</th>-->
-<!--          <th scope="col">Description</th>-->
-<!--          <th scope="col">Amount</th>-->
-<!--          <th scope="col">Type</th>-->
-<!--          <th scope="col">Date and time</th>-->
-
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr v-for="studentExpenseLog in studentExpenseLogs">-->
-<!--          <td>{{ studentExpenseLog.transferName }}</td>-->
-<!--          <td>{{ studentExpenseLog.description }}</td>-->
-<!--          <td>{{ studentExpenseLog.amount }}</td>-->
-<!--          <td>{{ studentExpenseLog.type }}</td>-->
-<!--          <td>{{ studentExpenseLog.dateTime }}</td>-->
-
-<!--          <td>-->
-<!--            <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" className="btn btn-warning">Show-->
-<!--              student balance log-->
-<!--            </button>-->
-<!--          </td>-->
-<!--        </tr>-->
-
-
-<!--        </tbody>-->
-<!--      </table>-->
-
-<!--    </div>-->
 
     <div v-if="groupExpenseLogTableBoolean">
 
       <table class="table table-hover" style="width:auto" align="center">
         <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Cost</th>
-          <th scope="col">Date and time</th>
-
+          <th scope="col">Kulu nimi</th>
+          <th scope="col">Selgitus</th>
+          <th scope="col">Summa</th>
+          <th scope="col">Kuupäev</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="studentBalanceLog in studentBalanceLogs">
-          <td>{{ studentBalanceLog.transferName }}</td>
-          <td>{{ studentBalanceLog.description }}</td>
-          <td>{{ studentBalanceLog.amount }}</td>
-          <td>{{ studentBalanceLog.type }}</td>
-          <td>{{ studentBalanceLog.dateTime }}</td>
-
-          <td>
-            <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" className="btn btn-warning">Show
-              student balance log
-            </button>
-          </td>
-          <div v-if="tableDIV2">
-
-            <table className="table table-striped">
-              <thead>
-
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
+        <tr v-for="expence in expenses">
+          <td>{{ expence.name }}</td>
+          <td>{{ expence.description }}</td>
+          <td>{{ expence.amount }}</td>
+          <td>{{ expence.dateAndTime }}</td>
         </tr>
-
-
+        <br>
         </tbody>
       </table>
 
@@ -205,7 +148,9 @@ export default {
       isActive: false,
       studentBalanceLogTable: false,
       groupExpenseLogTableBoolean: false,
+      expenses: {},
 
+      groupId: sessionStorage.getItem('groupId'),
       groupExpenseLogTable: {},
       groupExpenseLogTables: {},
       studentExpenseLogTable: false,
@@ -226,8 +171,7 @@ export default {
       student: {},
       studentBalanceLogs: {},
       balance: {},
-      studentExpenseLog: {},
-      studentExpenseLogs: {},
+
       group: {},
 
       groupInfoRequest: {
@@ -293,7 +237,7 @@ export default {
 
       this.$http.get("/user/student-balance-log/student-id", {
             params: {
-              studentId: this.studentId
+              studentId: studentId
             }
           }
       ).then(response => {
@@ -307,41 +251,39 @@ export default {
       })
     },
 
-    getStudentExpenseLogByStudentId: function (studentId) {
 
-      this.$http.get("/user/student-balance-log/student-id", {
-            params: {
-              studentId: this.studentId
-            }
-          }
-      ).then(response => {
-        alert("Õnnestus")
-        this.studentExpenseLogTable = true;
-        this.studentExpenseLog = response.data
-        console.log(response.data)
-      }).catch(error => {
-        alert("Ei õnnestunud")
-        console.log(error)
-      })
-    },
-
-    getGroupExpenseLogByGroupId: function (groupId) {
-
-      this.$http.get("/expense/exprnses-by-group-id", {
+    getGroupExpenses: function () {
+      this.$http.get("/expense/expenses-by-group-id", {
             params: {
               groupId: this.groupId
             }
           }
       ).then(response => {
-        alert("Õnnestus")
         this.groupExpenseLogTableBoolean = true
-        this.groupExpenseLogTables = response.data
-        console.log(response.data)
+        this.expenses = response.data
       }).catch(error => {
-        alert("Ei õnnestunud")
         console.log(error)
       })
     },
+
+    //
+    // getGroupExpenseLogByGroupId: function () {
+    //
+    //   this.$http.get("/expense/expenses-by-group-id", {
+    //         params: {
+    //           groupId: this.groupId
+    //         }
+    //       }
+    //   ).then(response => {
+    //     alert("Õnnestus")
+    //     this.groupExpenseLogTableBoolean = true
+    //     this.groupExpenseLogTables = response.data
+    //     console.log(response.data)
+    //   }).catch(error => {
+    //     alert("Ei õnnestunud")
+    //     console.log(error)
+    //   })
+    // },
 
 
   },
