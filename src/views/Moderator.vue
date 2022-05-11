@@ -2,7 +2,7 @@
 
 
   <div>
-    <button v-on:click="toParentView()" class="btn btn-light" style="margin-left: 1100px">Vanema leheküljele
+    <button v-on:click="toParentView()" class="btn btn-light" style="alignment: right">Vanema leheküljele
     </button>
     <br>
     <br>
@@ -15,7 +15,7 @@
     <br>
 
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 350px">
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="groupStud-tab" data-toggle="tab" href="#groupStud" role="tab"
            aria-controls="groupStud" aria-selected="true">Sinu gruppi õpilased</a>
@@ -29,7 +29,8 @@
            aria-selected="false">Kulude lisamine</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="allExpenses-tab" data-toggle="tab" href="#allExpenses" role="tab" aria-controls="allExpenses"
+        <a class="nav-link" id="allExpenses-tab" data-toggle="tab" href="#allExpenses" role="tab"
+           aria-controls="allExpenses"
            aria-selected="false">Kõik gruppi kulud</a>
       </li>
     </ul>
@@ -42,7 +43,7 @@
         <p class="card-text">Vaata õpilase vanemate kontaktandmed</p>
 
 
-        <div style="margin-left: 530px">
+        <div align="center">
           <div v-if="addMoneyDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
             <div class="card-header">Raha lisamine{{ ' ' }}
               {{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }} bilanssi
@@ -61,7 +62,7 @@
           </div>
         </div>
 
-        <div style="margin-left: 530px">
+        <div align="center">
           <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
             <div class="card-header">{{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }}vanemate
               andmed
@@ -119,7 +120,7 @@
 
           </tbody>
         </table>
-        <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="margin-left: 660px">Eemalda
+        <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="alignment: center">Eemalda
           gruppist
         </button>
         <br>
@@ -134,7 +135,7 @@
         <br>
         <h5 class="card-title">Õpilased, kes on registreeritud Teie gruppi</h5>
         <p class="card-text">Valige õpilasi keda tahate lisada oma gruppi</p>
-        <div style="margin-left: 530px">
+        <div align="center">
           <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
             <div class="card-header">{{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }}vanemate
               andmed
@@ -184,42 +185,51 @@
 
           </tbody>
         </table>
-        <button v-on:click="registerStudents()" class="btn btn-success" style="margin-left: 310px">Registreeri õpilasi
+        <button v-on:click="registerStudents()" class="btn btn-success" style="alignment: center">Registreeri õpilasi
         </button>
       </div>
 
-      <div class="tab-pane fade" id="addExpense" role="tabpanel" aria-labelledby="addExpense-tab">
+      <div class="tab-pane fade" id="addExpense" role="tabpanel" aria-labelledby="addExpense-tab" align="center">
         <br>
         <h5 class="card-title">Uue kulu lisamine</h5>
         <p class="card-text">Lisa kõik kuludega seotud info siia</p>
 
 
-        <div class="input-group mb-3" style="width: 400px; margin-left: 490px">
+        <div class="input-group mb-3" style="width: 400px">
           <div class="input-group-prepend">
-            <span class="input-group-text" >Kulu nimi</span>
+            <span class="input-group-text">Kulu nimi</span>
           </div>
           <input type="text" v-model="expenseRequest.name" class="form-control" aria-label="Sizing example input"
                  aria-describedby="inputGroup-sizing-default">
         </div>
-        <div class="input-group mb-3" style="width: 400px; margin-left: 490px">
+        <div class="input-group mb-3" style="width: 400px">
           <div class="input-group-prepend">
             <span class="input-group-text" style="size: 500px">Selgitus</span>
           </div>
-          <textarea class="form-control" v-model="expenseRequest.description" id="exampleFormControlTextarea1" rows="2"></textarea>
+          <textarea class="form-control" v-model="expenseRequest.description" id="exampleFormControlTextarea1"
+                    rows="2"></textarea>
         </div>
-        <div class="input-group mb-3" style="width: 400px; margin-left: 490px">
+        <div class="input-group mb-3" style="width: 400px">
           <div class="input-group-prepend">
-            <span class="input-group-text" >Summa</span>
+            <span class="input-group-text">Summa</span>
           </div>
           <div>
-          <input type="number" v-model="expenseRequest.amount" style="width: 319px" class="form-control" aria-label="Sizing example input"
-                 aria-describedby="inputGroup-sizing-default">
+            <input type="number" v-model="expenseRequest.amount" style="width: 319px" class="form-control"
+                   aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default">
           </div>
+
+        </div>
+
+          <div>
+
           <div>
             <br>
-            <h5 class="card-title">Vali õpilasi kes osalevad</h5>
+            <div align="center">
+              <h5> Vali õpilasi kes osalevad</h5>
+            </div>
             <br>
-            <table class="table table-hover" style="width:auto" align="center">
+            <table class="table table-hover" style="width: auto" align="center">
               <thead>
               <tr>
                 <th scope="col">Eesnimi</th>
@@ -234,11 +244,12 @@
                 <td>
                   <input type="checkbox" name="" v-model="expenseRequest.students" v-bind:value="student">
                 </td>
-              </tr><br>
+              </tr>
+              <br>
               </tbody>
             </table>
 
-            <button v-on:click="addNewExpense()" class="btn btn-secondary" style="margin-left: 180px">Lisa kulu</button>
+            <button v-on:click="addNewExpense()" class="btn btn-secondary">Lisa kulu</button>
 
           </div>
         </div>
@@ -262,15 +273,15 @@
             <td>{{ expence.name }}</td>
             <td>{{ expence.description }}</td>
             <td>{{ expence.amount }}</td>
-            <td>{{ expence.dateAndTime}}</td>
-          </tr><br>
+            <td>{{ expence.dateAndTime }}</td>
+          </tr>
+          <br>
           </tbody>
         </table>
 
 
       </div>
     </div>
-
 
 
   </div>
@@ -434,19 +445,18 @@ export default {
     },
 
 
-getGroupExpenses: function () {
-  this.$http.get("/expense/expenses-by-group-id", {
-        params: {
-          groupId: this.groupId
-        }
-      }
-  ).then(response => {
-    this.expenses = response.data
-  }).catch(error => {
-    console.log(error)
-  })
-},
-
+    getGroupExpenses: function () {
+      this.$http.get("/expense/expenses-by-group-id", {
+            params: {
+              groupId: this.groupId
+            }
+          }
+      ).then(response => {
+        this.expenses = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
 
   },
