@@ -13,18 +13,12 @@
     <br>
     <br>
 
-<!--    <div v-if="foundGroupBoolean">-->
-<!--      <input placeholder="Group name" v-model="groupName"><br>-->
-<!--      <button v-on:click="joinGroup" type="button" name="btn" class="btn btn-secondary btn-sm m-3" >Join group</button>-->
-<!--    </div>-->
 
     <br>
     <br>
 
-<!--    <button v-on:click="getYourGroup">Find your groups</button>-->
 
     <div v-if="groupListDiv">
-<!--      <input placeholder="Enter user id" v-model="userId "><br>-->
       <table class="table table-hover" style="width:auto" align="center">
         <thead>
         <tr>
@@ -61,7 +55,6 @@ export default {
 
     return {
 
-      groupId: 0,
       foundGroupBoolean : false,
       isModerator: false,
       yourGroups: {},
