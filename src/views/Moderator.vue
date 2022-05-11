@@ -2,7 +2,7 @@
 
 
   <div>
-    <button v-on:click="toParentView()" class="btn btn-light" style="alignment: left">Vanema leheküljele
+    <button v-on:click="toParentView()" class="btn btn-light" style="alignment: right">Vanema leheküljele
     </button>
     <br>
     <br>
@@ -24,25 +24,26 @@
         <a class="nav-link" id="regStud-tab" data-toggle="tab" href="#regStud" role="tab" aria-controls="regStud"
            aria-selected="false">Registreeritud õpilased</a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#addExpense" role="tab" aria-controls="addExpense"
            aria-selected="false">Kulude lisamine</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="allExpenses-tab" data-toggle="tab" href="#allExpenses" role="tab" aria-controls="allExpenses"
+        <a class="nav-link" id="allExpenses-tab" data-toggle="tab" href="#allExpenses" role="tab"
+           aria-controls="allExpenses"
            aria-selected="false">Kõik gruppi kulud</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="groupStud" role="tabpanel" aria-labelledby="groupStud-tab">
         <br>
-        <h5 class="card-title" justify-content-center>Sinu gruppi õpilased</h5>
+        <h5 class="card-title">Sinu gruppi õpilased</h5>
         <p class="card-text">Vali õpilased keda tahad gruppist eemaldada</p>
         <p class="card-text">Lisa raha õpilase bilanssile</p>
         <p class="card-text">Vaata õpilase vanemate kontaktandmed</p>
 
 
-        <div style="alignment: center">
+        <div align="center">
           <div v-if="addMoneyDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
             <div class="card-header">Raha lisamine{{ ' ' }}
               {{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }} bilanssi
@@ -61,7 +62,7 @@
           </div>
         </div>
 
-        <div style="alignment: center">
+        <div align="center">
           <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
             <div class="card-header">{{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }}vanemate
               andmed
@@ -134,7 +135,7 @@
         <br>
         <h5 class="card-title">Õpilased, kes on registreeritud Teie gruppi</h5>
         <p class="card-text">Valige õpilasi keda tahate lisada oma gruppi</p>
-        <div style="alignment: center">
+        <div align="center">
           <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
             <div class="card-header">{{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }}vanemate
               andmed
@@ -194,32 +195,41 @@
         <p class="card-text">Lisa kõik kuludega seotud info siia</p>
 
 
-        <div class="input-group mb-3" style="width: 400px; alignment: center">
+        <div class="input-group mb-3" style="width: 400px">
           <div class="input-group-prepend">
-            <span class="input-group-text" >Kulu nimi</span>
+            <span class="input-group-text">Kulu nimi</span>
           </div>
           <input type="text" v-model="expenseRequest.name" class="form-control" aria-label="Sizing example input"
                  aria-describedby="inputGroup-sizing-default">
         </div>
-        <div class="input-group mb-3" style="width: 400px; alignment: center">
+        <div class="input-group mb-3" style="width: 400px">
           <div class="input-group-prepend">
             <span class="input-group-text" style="size: 500px">Selgitus</span>
           </div>
-          <textarea class="form-control" v-model="expenseRequest.description" id="exampleFormControlTextarea1" rows="2"></textarea>
+          <textarea class="form-control" v-model="expenseRequest.description" id="exampleFormControlTextarea1"
+                    rows="2"></textarea>
         </div>
-        <div class="input-group mb-3" style="width: 400px; alignment: center">
+        <div class="input-group mb-3" style="width: 400px">
           <div class="input-group-prepend">
-            <span class="input-group-text" >Summa</span>
+            <span class="input-group-text">Summa</span>
           </div>
           <div>
-            <input type="number" v-model="expenseRequest.amount" style="width: 319px" class="form-control" aria-label="Sizing example input"
+            <input type="number" v-model="expenseRequest.amount" style="width: 319px" class="form-control"
+                   aria-label="Sizing example input"
                    aria-describedby="inputGroup-sizing-default">
           </div>
+
+        </div>
+
+          <div>
+
           <div>
             <br>
-            <h5 class="card-title">Vali õpilasi kes osalevad</h5>
+            <div align="center">
+              <h5> Vali õpilasi kes osalevad</h5>
+            </div>
             <br>
-            <table class="table table-hover" style="width:auto" align="center">
+            <table class="table table-hover" style="width: auto" align="center">
               <thead>
               <tr>
                 <th scope="col">Eesnimi</th>
@@ -234,11 +244,12 @@
                 <td>
                   <input type="checkbox" name="" v-model="expenseRequest.students" v-bind:value="student">
                 </td>
-              </tr><br>
+              </tr>
+              <br>
               </tbody>
             </table>
 
-            <button v-on:click="addNewExpense()" class="btn btn-secondary" style="alignment: center">Lisa kulu</button>
+            <button v-on:click="addNewExpense()" class="btn btn-secondary">Lisa kulu</button>
 
           </div>
         </div>
@@ -262,15 +273,15 @@
             <td>{{ expence.name }}</td>
             <td>{{ expence.description }}</td>
             <td>{{ expence.amount }}</td>
-            <td>{{ expence.dateAndTime}}</td>
-          </tr><br>
+            <td>{{ expence.dateAndTime }}</td>
+          </tr>
+          <br>
           </tbody>
         </table>
 
 
       </div>
     </div>
-
 
 
   </div>
@@ -446,7 +457,6 @@ export default {
         console.log(error)
       })
     },
-
 
 
   },
