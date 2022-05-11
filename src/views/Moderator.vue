@@ -1,9 +1,11 @@
 <template>
 
-  <!--  <button type="button" class="btn btn-secondary">Secondary</button>-->
 
   <div>
-
+    <button v-on:click="toParentView()" class="btn btn-light" style="margin-left: 1100px">Vanema leheküljele
+    </button>
+    <br>
+    <br>
     <div>
 
       <img
@@ -13,7 +15,7 @@
     <br>
 
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 420px">
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 350px">
       <li class="nav-item">
         <a class="nav-link active" id="groupStud-tab" data-toggle="tab" href="#groupStud" role="tab"
            aria-controls="groupStud" aria-selected="true">Sinu gruppi õpilased</a>
@@ -25,6 +27,10 @@
       <li class="nav-item">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#addExpense" role="tab" aria-controls="addExpense"
            aria-selected="false">Kulude lisamine</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="allExpenses-tab" data-toggle="tab" href="#allExpenses" role="tab" aria-controls="allExpenses"
+           aria-selected="false">Kõik gruppi kulud</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -190,23 +196,25 @@
 
         <div class="input-group mb-3" style="width: 400px; margin-left: 490px">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Kulu nimi</span>
+            <span class="input-group-text" >Kulu nimi</span>
           </div>
           <input type="text" v-model="expenseRequest.name" class="form-control" aria-label="Sizing example input"
                  aria-describedby="inputGroup-sizing-default">
         </div>
         <div class="input-group mb-3" style="width: 400px; margin-left: 490px">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default" style="size: 500px">Seletus</span>
+            <span class="input-group-text" style="size: 500px">Selgitus</span>
           </div>
           <textarea class="form-control" v-model="expenseRequest.description" id="exampleFormControlTextarea1" rows="2"></textarea>
         </div>
         <div class="input-group mb-3" style="width: 400px; margin-left: 490px">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Kulu suurus</span>
+            <span class="input-group-text" >Summa</span>
           </div>
-          <input type="number" v-model="expenseRequest.amount" class="form-control" aria-label="Sizing example input"
+          <div>
+          <input type="number" v-model="expenseRequest.amount" style="width: 319px" class="form-control" aria-label="Sizing example input"
                  aria-describedby="inputGroup-sizing-default">
+          </div>
           <div>
             <br>
             <h5 class="card-title">Vali õpilasi kes osalevad</h5>
@@ -235,7 +243,36 @@
           </div>
         </div>
       </div>
+
+      <div class="tab-pane fade" id="allExpenses" role="tabpanel" aria-labelledby="allExpenses-tab">
+        <br>
+        <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
+        <br>
+        <table class="table table-hover" style="width:auto" align="center">
+          <thead>
+          <tr>
+            <th scope="col">Kulu nimi</th>
+            <th scope="col">Selgitus</th>
+            <th scope="col">Summa</th>
+            <th scope="col">Kuupäev</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="expence in expenses">
+            <td>{{ expence.name }}</td>
+            <td>{{ expence.description }}</td>
+            <td>{{ expence.amount }}</td>
+            <td>{{ expence.dateAndTime}}</td>
+          </tr><br>
+          </tbody>
+        </table>
+
+
+      </div>
     </div>
+
+
+
   </div>
 
 
@@ -259,6 +296,7 @@ export default {
       studentId: sessionStorage.getItem('studentId'),
       yourGroups: {},
       studentsToRemove: {},
+      expenses: {},
       amount: null,
       registeredStudentList: [],
       studentList: [],
@@ -295,6 +333,9 @@ export default {
       this.getUserContactByStudentId()
     },
 
+    toParentView: function () {
+      this.$router.push({name: 'parentRoute'})
+    },
 
     getGroupStudents: function () {
       this.$http.get("/moderator/all-students", {
@@ -392,10 +433,27 @@ export default {
       })
     },
 
+
+getGroupExpenses: function () {
+  this.$http.get("/expense/expenses-by-group-id", {
+        params: {
+          groupId: this.groupId
+        }
+      }
+  ).then(response => {
+    this.expenses = response.data
+  }).catch(error => {
+    console.log(error)
+  })
+},
+
+
+
   },
   mounted() {
     this.getGroupStudents()
     this.getRegisteredStudents()
+    this.getGroupExpenses()
   }
 }
 
