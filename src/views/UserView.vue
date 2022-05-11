@@ -13,24 +13,18 @@
     <br>
     <br>
 
-<!--    <div v-if="foundGroupBoolean">-->
-<!--      <input placeholder="Group name" v-model="groupName"><br>-->
-<!--      <button v-on:click="joinGroup" type="button" name="btn" class="btn btn-secondary btn-sm m-3" >Join group</button>-->
-<!--    </div>-->
 
     <br>
     <br>
 
-<!--    <button v-on:click="getYourGroup">Find your groups</button>-->
 
     <div v-if="groupListDiv">
-<!--      <input placeholder="Enter user id" v-model="userId "><br>-->
       <table class="table table-hover" style="width:auto" align="center">
         <thead>
         <tr>
           <th scope="col">Group name</th>
           <th scope="col">Description</th>
-          <th scope="col">Description</th>
+          <th scope="col">Select group</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -61,7 +55,6 @@ export default {
 
     return {
 
-      groupId: 0,
       foundGroupBoolean : false,
       isModerator: false,
       yourGroups: {},
@@ -144,7 +137,7 @@ export default {
         alert("sain grupi info")
         this.groupId = response.data.groupId
         sessionStorage.setItem('groupId', response.data.groupId)
-        // this.$router.push({name: 'parentRoute'})
+        this.$router.push({name: 'parentRoute'})
 
         console.log(response.data)
       }).catch(error => {
@@ -154,10 +147,10 @@ export default {
 
     selectGroup: function (groupId) {
       this.$http.get("/expense/group-by-group-id", {
-        params: {
-          groupId: groupId,
-          userId: this.userId
-        }
+            params: {
+              groupId: groupId,
+              userId: this.userId
+            }
           }
       ).then(response => {
         this.group = response.data

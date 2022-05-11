@@ -5,16 +5,36 @@
 
 
     <h1>Log in</h1>
-    <input placeholder="username" v-model="userName"><br>
-    <input placeholder="password" v-model="password"><br>
-    <button v-on:click="logIn">Log in</button>
+
+
+    <div>
+      <div class="d-inline-flex p-2">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text">Username</label>
+          </div>
+          <input type="text" v-model="userName">
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="d-inline-flex p-2">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text">Password</label>
+          </div>
+          <input type="password" v-model="password">
+        </div>
+      </div>
+    </div>
+
+    <button type="button" v-on:click="logIn" class="btn btn-secondary">Login</button>
     <br>
     <br>
 
-    <router-link :to="{ name: 'registerRoute'}">register</router-link>
-    <br>
-    <br>
-    <br>
+
+    <button type="button" v-on:click="toRegisterView" class="btn btn-secondary">Registreeri</button>
+
 
 
   </div>
@@ -40,6 +60,10 @@ export default {
 
   methods: {
 
+    toRegisterView: function () {
+      this.$router.push({name: 'registerRoute'})
+    },
+
     logIn: function () {
 
       this.$http.get("/log-in", {
@@ -54,13 +78,15 @@ export default {
         this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
+        this.$router.push({name: 'userViewRoute'})
 
-        if (this.userRoleId == 4) {
-          this.$router.push({name: 'moderatorRoute'})
+        // if (this.userRoleId === 4) {
 
-        } else {
-          this.$router.push({name: 'parentRoute'})
-        }
+        //   this.$router.push({name: 'moderatorRoute'})
+        //
+        // } else {
+        //   this.$router.push({name: 'parentRoute'})
+        // }
 
         // switch (this.userRoleId) {
         //   case "4":

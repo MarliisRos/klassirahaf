@@ -40,8 +40,8 @@ export default {
         this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
+        this.$router.push({name: 'userViewRoute'})
         console.log(response.data)
-        this.$router.push({name: 'parentRoute'})
       }).catch(error => {
         alert("Kasutaja loomine ei õnnestunud")
         console.log(error)
