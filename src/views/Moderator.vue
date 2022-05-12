@@ -129,9 +129,6 @@
           </button>
           <br>
           <br>
-          <br>
-          <br>
-
         </div>
 
 
@@ -191,6 +188,8 @@
           </table>
           <button v-on:click="registerStudents()" class="btn btn-success" style="alignment: center">Registreeri õpilasi
           </button>
+          <br>
+          <br>
         </div>
 
         <div class="tab-pane fade" id="addExpense" role="tabpanel" aria-labelledby="addExpense-tab" align="center">
@@ -223,12 +222,26 @@
                      aria-describedby="inputGroup-sizing-default">
             </div>
 
-
             <div>
               <br>
-            <input type="file" @change="handleImage" accept="image/x-png, image/jpeg">
-            <button v-on:click="addNewReceiptPicture"  type="button" class="btn btn-success m-5">Lisa pilt</button>
+              <div class="input-group" style="width: 400px">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" @change="handleImage" accept="image/x-png, image/jpeg"
+                         id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                  <label class="custom-file-label" for="inputGroupFile04">{{ pictureMessage }}</label>
+                </div>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" v-on:click="addNewReceiptPicture">Lisa pilt
+                  </button>
+                </div>
+              </div>
             </div>
+
+            <!--            <div>-->
+            <!--              <br>-->
+            <!--            <input type="file"  @change="handleImage" accept="image/x-png, image/jpeg">-->
+            <!--            <button v-on:click="addNewReceiptPicture"  type="button" class="btn btn-light btn-sm">Lisa pilt</button>-->
+            <!--            </div>-->
 
           </div>
 
@@ -261,7 +274,8 @@
               </table>
 
               <button v-on:click="addNewExpense()" class="btn btn-secondary">Lisa kulu</button>
-
+              <br>
+              <br>
             </div>
           </div>
         </div>
@@ -295,7 +309,7 @@
 
 
           <div v-for="picture in pictures">
-            <label>{{picture.title}}</label>
+            <label>{{ picture.title }}</label>
             <img :src="picture.data">
           </div>
         </div>
@@ -313,7 +327,7 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" >Perekonnanimi</span>
+          <span class="input-group-text">Perekonnanimi</span>
         </div>
         <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -321,7 +335,7 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" >E-mail</span>
+          <span class="input-group-text">E-mail</span>
         </div>
         <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -329,14 +343,14 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" >Telefon</span>
+          <span class="input-group-text">Telefon</span>
         </div>
         <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
       </div>
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" >Pangakontonumber</span>
+          <span class="input-group-text">Pangakontonumber</span>
         </div>
         <input type="text" v-model="contactRequest.accountNumber" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -370,6 +384,7 @@ export default {
       contactDiv: false,
       updateContactDiv: false,
       groupStudents: {},
+      pictureMessage: 'Vali pilt',
       studentFirstName: sessionStorage.getItem('studentFirstName'),
       studentLastName: '',
       studentInfo: {},
@@ -492,8 +507,7 @@ export default {
     addNewExpense: function () {
       this.$http.post("/moderator/new-expense", this.expenseRequest
       ).then(response => {
-        console.log(this.expenseRequest)
-        console.log(response.data)
+        this.expenseRequest = {}
       }).catch(error => {
         console.log(error)
       })
@@ -584,7 +598,6 @@ export default {
     },
 
 
-
     handleImage(event) {
 
       const selectedImage = event.target.files[0];
@@ -607,6 +620,7 @@ export default {
       this.$http.post("/receipt-picture/in", this.pictureExport
       ).then(response => {
         this.expenseRequest.pictureId = response.data
+        this.pictureMessage = 'Pilt lisatud'
       }).catch(error => {
         console.log(error)
       })
