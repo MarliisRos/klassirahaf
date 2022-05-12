@@ -62,6 +62,7 @@ export default {
       tableDIV: false,
       tableDIV2: true,
       userId: sessionStorage.getItem('userId'),
+      groupId: sessionStorage.getItem('groupId'),
       roleId: 0,
       studentId: 0,
       id: 0,

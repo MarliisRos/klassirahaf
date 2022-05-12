@@ -320,7 +320,7 @@
             <br>
             <div v-for="picture in pictures">
               <label>{{ picture.title }}</label>
-              <img :src="picture.data">
+              <img :src="picture.data" style="max-width: 600px">
               <br>
               <br>
             </div>
@@ -449,6 +449,7 @@ export default {
     toMainView: function () {
       this.updateContactDiv = false
       this.mainDiv = true
+      this.contactRequest ={}
     },
 
     toAddMoneyDiv: function (student) {
@@ -526,6 +527,7 @@ export default {
         sessionStorage.removeItem('studentId')
         this.getGroupStudents()
         this.addMoneyDiv = false
+        this.amount = null
       }).catch(error => {
         console.log(error)
       })
@@ -536,6 +538,7 @@ export default {
       this.$http.post("/moderator/new-expense", this.expenseRequest
       ).then(response => {
         this.expenseRequest = {}
+        this.getGroupExpenses()
       }).catch(error => {
         console.log(error)
       })
