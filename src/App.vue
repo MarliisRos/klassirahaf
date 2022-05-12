@@ -2,10 +2,10 @@
   <div id="app">
     <nav>
       <router-link to="/user">User</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/parent">Parent</router-link> |
-      <router-link to="/moderator">Moderator</router-link> |
-      <router-link to="/l">Log out</router-link> |
+<!--      <router-link to="/login">Login</router-link> |-->
+<!--      <router-link to="/parent">Parent</router-link> |-->
+<!--      <router-link to="/moderator">Moderator</router-link> |-->
+      <router-link to="/logout">Log out</router-link> |
     </nav>
     <router-view/>
   </div>
