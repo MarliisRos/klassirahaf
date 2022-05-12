@@ -280,42 +280,49 @@
           </div>
         </div>
 
-        <div v-if="groupExpenseLogDiv" class="tab-pane fade" id="allExpenses" role="tabpanel"
+
+        <div class="tab-pane fade" id="allExpenses" role="tabpanel"
              aria-labelledby="allExpenses-tab">
           <br>
-          <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
-          <br>
-          <table class="table table-hover" style="width:auto" align="center">
-            <thead>
-            <tr>
-              <th scope="col">Kulu nimi</th>
-              <th scope="col">Selgitus</th>
-              <th scope="col">Summa</th>
-              <th scope="col">Kuupäev</th>
-              <th scope="col">Vaata pilti</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="expence in expenses">
-              <td>{{ expence.name }}</td>
-              <td>{{ expence.description }}</td>
-              <td>{{ expence.amount }}</td>
-              <td>{{ expence.dateAndTime }}</td>
-              <td>
-                <button v-on:click="getReceiptPictures(expence.expenseId)" type="button" class="btn btn-light btn-sm">
-                  Vaata pilti
-                </button>
-              </td>
-            </tr>
+          <div v-if="groupExpenseLogDiv">
+            <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
             <br>
-            </tbody>
-          </table>
+            <table class="table table-hover" style="width:auto" align="center">
+              <thead>
+              <tr>
+                <th scope="col">Kulu nimi</th>
+                <th scope="col">Selgitus</th>
+                <th scope="col">Summa</th>
+                <th scope="col">Kuupäev</th>
+                <th scope="col">Vaata pilti</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="expence in expenses">
+                <td>{{ expence.name }}</td>
+                <td>{{ expence.description }}</td>
+                <td>{{ expence.amount }}</td>
+                <td>{{ expence.dateAndTime }}</td>
+                <td>
+                  <button v-on:click="getReceiptPictures(expence.expenseId)" type="button" class="btn btn-light btn-sm">
+                    Vaata pilti
+                  </button>
+                </td>
+              </tr>
+              <br>
+              </tbody>
+            </table>
+          </div>
 
           <div v-if="expencePictureDiv">
-            <button v-on:click="toExpenseLogDiv()" class="btn btn-secondary">Tagasi</button>
+            <button v-on:click="toExpenseLogDiv()" class="btn btn-secondary ">Tagasi</button>
+            <br>
+            <br>
             <div v-for="picture in pictures">
               <label>{{ picture.title }}</label>
               <img :src="picture.data">
+              <br>
+              <br>
             </div>
           </div>
 
@@ -452,7 +459,7 @@ export default {
     },
 
     toExpensePictureDiv: function () {
-      // this.groupExpenseLogDiv = false
+      this.groupExpenseLogDiv = false
       this.expencePictureDiv = true
     },
 
