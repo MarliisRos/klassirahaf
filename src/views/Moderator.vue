@@ -280,7 +280,8 @@
           </div>
         </div>
 
-        <div class="tab-pane fade" id="allExpenses" role="tabpanel" aria-labelledby="allExpenses-tab">
+        <div v-if="groupExpenseLogDiv" class="tab-pane fade" id="allExpenses" role="tabpanel"
+             aria-labelledby="allExpenses-tab">
           <br>
           <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
           <br>
@@ -291,6 +292,7 @@
               <th scope="col">Selgitus</th>
               <th scope="col">Summa</th>
               <th scope="col">Kuupäev</th>
+              <th scope="col">Vaata pilti</th>
             </tr>
             </thead>
             <tbody>
@@ -299,20 +301,27 @@
               <td>{{ expence.description }}</td>
               <td>{{ expence.amount }}</td>
               <td>{{ expence.dateAndTime }}</td>
+              <td>
+                <button v-on:click="getReceiptPictures(expence.expenseId)" type="button" class="btn btn-light btn-sm">
+                  Vaata pilti
+                </button>
+              </td>
             </tr>
             <br>
             </tbody>
           </table>
 
-          <br>
-          <button v-on:click="getReceiptPictures" type="button" class="btn btn-success m-5">Vaata pilti</button>
-
-
-          <div v-for="picture in pictures">
-            <label>{{ picture.title }}</label>
-            <img :src="picture.data">
+          <div v-if="expencePictureDiv">
+            <button v-on:click="toExpenseLogDiv()" class="btn btn-secondary">Tagasi</button>
+            <div v-for="picture in pictures">
+              <label>{{ picture.title }}</label>
+              <img :src="picture.data">
+            </div>
           </div>
+
         </div>
+
+
       </div>
     </div>
 
@@ -381,6 +390,8 @@ export default {
     return {
       mainDiv: true,
       addMoneyDiv: false,
+      expencePictureDiv: false,
+      groupExpenseLogDiv: true,
       contactDiv: false,
       updateContactDiv: false,
       groupStudents: {},
@@ -438,6 +449,16 @@ export default {
       this.studentFirstName = student.firstName
       this.studentLastName = student.lastName
       sessionStorage.setItem('studentId', student.studentId)
+    },
+
+    toExpensePictureDiv: function () {
+      // this.groupExpenseLogDiv = false
+      this.expencePictureDiv = true
+    },
+
+    toExpenseLogDiv: function () {
+      this.groupExpenseLogDiv = true
+      this.expencePictureDiv = false
     },
 
     toUpdateContact: function () {
@@ -625,12 +646,17 @@ export default {
         console.log(error)
       })
     },
-    getReceiptPictures: function () {
-      this.$http.get("/receipt-picture/all")
-          .then(response => {
-            this.pictures = response.data
-            console.log(response.data)
-          }).catch(error => {
+    getReceiptPictures: function (expenseId) {
+      this.$http.get("/receipt-picture/all", {
+            params: {
+              expenseId: expenseId
+            }
+          }
+      ).then(response => {
+        this.toExpensePictureDiv()
+        this.pictures = response.data
+        console.log(response.data)
+      }).catch(error => {
         console.log(error)
       })
     }
