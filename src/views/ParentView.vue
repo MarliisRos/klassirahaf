@@ -1,16 +1,48 @@
 <template>
 
   <div>
-    <h1>Add new student to group</h1>
+    <h3>Add new student to group</h3>
     <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
     <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
     <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth"><br>
     <button v-on:click="addNewStudent">Add new student</button>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
+
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+
+
+    <!--      <b-navbar toggleable type="dark" variant="dark">-->
+    <!--        <b-navbar-brand href="#">First Name</b-navbar-brand>-->
+
+    <!--        <b-navbar-toggle target="navbar-toggle-collapse">-->
+    <!--          <template #default="{ expanded }">-->
+    <!--            <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>-->
+    <!--            <b-icon v-else icon="chevron-bar-down"></b-icon>-->
+    <!--          </template>-->
+    <!--        </b-navbar-toggle>-->
+
+    <!--        <b-collapse id="navbar-toggle-collapse" is-nav>-->
+    <!--          <b-navbar-nav class="ml-auto">-->
+    <!--            <b-nav-item href="#">Link 1</b-nav-item>-->
+    <!--            <b-nav-item href="#">Link 2</b-nav-item>-->
+    <!--            <b-nav-item href="#" disabled>Disabled</b-nav-item>-->
+    <!--          </b-navbar-nav>-->
+    <!--        </b-collapse>-->
+    <!--      </b-navbar>-->
+
+
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+
 
     <table class="table table-hover" style="width:auto" align="center">
       <thead>
@@ -30,15 +62,16 @@
         <td>{{ student.groupBalanceAmount }}</td>
 
         <td>
-          <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
+          <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" name="btn"
+                  class="btn btn-secondary btn-sm m-3">
             Show student balance log
           </button>
-<!--          <button v-on:click="getStudentExpenseLogByStudentId(student.id)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">-->
-<!--            Student expense log-->
-<!--          </button>-->
-<!--          <button v-on:click="selectGroup(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">-->
-<!--            Show group balance log-->
-<!--          </button>-->
+          <!--          <button v-on:click="getStudentExpenseLogByStudentId(student.id)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">-->
+          <!--            Student expense log-->
+          <!--          </button>-->
+          <!--          <button v-on:click="selectGroup(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">-->
+          <!--            Show group balance log-->
+          <!--          </button>-->
           <button v-on:click="getGroupExpenses()" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
             Group expense log
           </button>
@@ -77,7 +110,6 @@
     </div>
 
 
-
     <div v-if="groupExpenseLogTableBoolean">
 
       <table class="table table-hover" style="width:auto" align="center">
@@ -102,33 +134,32 @@
 
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
 
 
-    <input placeholder="StudentId" v-model="id"><br>
-    <button v-on:click="getStudentBalanceById">Get student balance info</button>
-    <br>
-    <br>
-    <br>
-    <br>
-    <input placeholder="Get students by user id" v-model="userId"><br>
-    <button v-on:click="getStudentByUserId">Get students by user id</button>
-    <br>
-    <br>
-    <input placeholder="Get student balance log by student id" v-model="studentId"><br>
-    <button v-on:click="getStudentBalanceLogByStudentId">Get student balance log by student id</button>
+<!--    <input placeholder="StudentId" v-model="id"><br>-->
+<!--    <button v-on:click="getStudentBalanceById">Get student balance info</button>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <input placeholder="Get students by user id" v-model="userId"><br>-->
+<!--    <button v-on:click="getStudentByUserId">Get students by user id</button>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <input placeholder="Get student balance log by student id" v-model="studentId"><br>-->
+<!--    <button v-on:click="getStudentBalanceLogByStudentId">Get student balance log by student id</button>-->
 
 
-    <input placeholder="Student" v-model="id"><br>
-    <button v-on:click="getStudentBalanceById">Add student to group</button>
-
+<!--    <input placeholder="Student" v-model="id"><br>-->
+<!--    <button v-on:click="getStudentBalanceById">Add student to group</button>-->
 
 
   </div>
@@ -241,9 +272,18 @@ export default {
             }
           }
       ).then(response => {
-        alert("Õnnestus")
-        this.studentBalanceLogTable = true
         this.studentBalanceLogs = response.data
+        // this.studentBalanceLogTable = true
+
+        if (this.groupExpenseLogTableBoolean === true) {
+          this.groupExpenseLogTableBoolean = false
+        }
+
+        if (this.studentBalanceLogTable === false) {
+          this.studentBalanceLogTable = true
+        } else {
+          this.studentBalanceLogTable = false
+        }
         console.log(response.data)
       }).catch(error => {
         alert("Ei õnnestunud")
@@ -259,8 +299,18 @@ export default {
             }
           }
       ).then(response => {
-        this.groupExpenseLogTableBoolean = true
+        // this.groupExpenseLogTableBoolean = true
         this.expenses = response.data
+
+        if (this.studentBalanceLogTable === true) {
+          this.studentBalanceLogTable = false
+        }
+
+        if (this.groupExpenseLogTableBoolean === false) {
+          this.groupExpenseLogTableBoolean = true
+        } else {
+          this.groupExpenseLogTableBoolean = false
+        }
       }).catch(error => {
         console.log(error)
       })
