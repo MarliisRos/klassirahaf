@@ -3,7 +3,12 @@
 
   <div>
 
-
+    <div>
+      <img
+          src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"
+          alt="">
+    </div>
+    <br>
     <h1>Log in</h1>
 
 
@@ -28,12 +33,8 @@
       </div>
     </div>
 
-    <button type="button" v-on:click="logIn" class="btn btn-secondary">Login</button>
-    <br>
-    <br>
-
-
-    <button type="button" v-on:click="toRegisterView" class="btn btn-secondary">Registreeri</button>
+    <button type="button" v-on:click="logIn" class="btn btn-secondary m-3" style="width: 100px" >Login</button>
+    <button type="button" v-on:click="toRegisterView" class="btn btn-secondary" style="width: 100px">Registreeri</button>
 
 
 
@@ -79,18 +80,6 @@ export default {
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
         this.$router.push({name: 'userViewRoute'})
-
-        // if (this.userRoleId === 4) {
-
-        //   this.$router.push({name: 'moderatorRoute'})
-        //
-        // } else {
-        //   this.$router.push({name: 'parentRoute'})
-        // }
-
-        // switch (this.userRoleId) {
-        //   case "4":
-        //     this.$router.push({name: 'moderatorRoute'})
 
     }
 ).catch(error => {

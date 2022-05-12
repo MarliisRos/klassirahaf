@@ -326,7 +326,8 @@
                aria-describedby="inputGroup-sizing-default">
       </div>
       <br>
-      <button v-on:click="updateContactInfo()" class="btn btn-secondary">Uuenda kontaktandmed</button>
+      <button v-on:click="updateContactInfo()" class="btn btn-secondary m-3">Uuenda kontaktandmed</button>
+      <button v-on:click="toMainView()" class="btn btn-secondary">Tagasi</button>
       <br>
       <br>
     </div>
@@ -391,6 +392,11 @@ export default {
   },
 
   methods: {
+
+    toMainView: function () {
+      this.updateContactDiv = false
+      this.mainDiv = true
+    },
 
     toAddMoneyDiv: function (student) {
       this.addMoneyDiv = true
