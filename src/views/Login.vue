@@ -10,8 +10,6 @@
     </div>
     <br>
     <h1>Log in</h1>
-
-
     <div>
       <div class="d-inline-flex p-2">
         <div class="input-group mb-3">

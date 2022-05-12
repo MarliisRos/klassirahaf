@@ -223,6 +223,13 @@
                      aria-describedby="inputGroup-sizing-default">
             </div>
 
+
+            <div>
+              <br>
+            <input type="file" @change="handleImage" accept="image/x-png, image/jpeg">
+            <button v-on:click="addNewReceiptPicture"  type="button" class="btn btn-success m-5">Lisa pilt</button>
+            </div>
+
           </div>
 
           <div>
@@ -282,6 +289,15 @@
             <br>
             </tbody>
           </table>
+
+          <br>
+          <button v-on:click="getReceiptPictures" type="button" class="btn btn-success m-5">Vaata pilti</button>
+
+
+          <div v-for="picture in pictures">
+            <label>{{picture.title}}</label>
+            <img :src="picture.data">
+          </div>
         </div>
       </div>
     </div>
@@ -297,7 +313,7 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Perekonnanimi</span>
+          <span class="input-group-text" >Perekonnanimi</span>
         </div>
         <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -305,7 +321,7 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
+          <span class="input-group-text" >E-mail</span>
         </div>
         <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -313,14 +329,14 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Telefon</span>
+          <span class="input-group-text" >Telefon</span>
         </div>
         <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
       </div>
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Pangakontonumber</span>
+          <span class="input-group-text" >Pangakontonumber</span>
         </div>
         <input type="text" v-model="contactRequest.accountNumber" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -373,6 +389,9 @@ export default {
       firstName: '',
       lastName: '',
       tel: '',
+      pictureExport: {},
+      picId: 0,
+      pictures: {},
       contactRequest: {
         id: sessionStorage.getItem('userId'),
         firstName: '',
@@ -383,6 +402,7 @@ export default {
       },
       expenseRequest: {
         groupId: sessionStorage.getItem('groupId'),
+        pictureId: null,
         name: '',
         description: '',
         amount: null,
@@ -562,6 +582,44 @@ export default {
         console.log(error)
       })
     },
+
+
+
+    handleImage(event) {
+
+      const selectedImage = event.target.files[0];
+      this.createBase64Image(selectedImage);
+    },
+
+    createBase64Image(fileObject) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.pictureExport.data = reader.result;
+      };
+      reader.onerror = function (error) {
+        alert(error);
+      }
+      reader.readAsDataURL(fileObject);
+    },
+
+
+    addNewReceiptPicture: function () {
+      this.$http.post("/receipt-picture/in", this.pictureExport
+      ).then(response => {
+        this.expenseRequest.pictureId = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getReceiptPictures: function () {
+      this.$http.get("/receipt-picture/all")
+          .then(response => {
+            this.pictures = response.data
+            console.log(response.data)
+          }).catch(error => {
+        console.log(error)
+      })
+    }
 
 
   },
