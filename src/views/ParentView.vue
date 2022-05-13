@@ -42,7 +42,8 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 110px">Sündinud:</span>
           </div>
-          <input type="date" v-model="newStudentInfo.dateOfBirth" v-on:keyup.enter="addNewStudent" class="form-control" aria-label="Sizing example input"
+          <input type="date" v-model="newStudentInfo.dateOfBirth" v-on:keyup.enter="addNewStudent" class="form-control"
+                 aria-label="Sizing example input"
                  aria-describedby="inputGroup-sizing-sm">
         </div>
         <button v-on:click="addNewStudent()" class="btn btn-secondary m-3">Lisa laps gruppi</button>
@@ -81,6 +82,7 @@
         </tbody>
       </table>
 
+
       <div v-if="studentBalanceLogTable">
         <table class="table table-hover" style="width:auto" align="center">
           <thead>
@@ -90,23 +92,47 @@
             <th scope="col">Summa</th>
             <th scope="col">Tüüp</th>
             <th scope="col">Kuupäev</th>
-
           </tr>
           </thead>
           <tbody>
           <tr v-for="studentBalanceLog in studentExpenses">
-            <td>{{ studentBalanceLog.transferName }}</td>
-            <td>{{ studentBalanceLog.description }}</td>
-            <td>{{ studentBalanceLog.amount }}</td>
-            <td>{{ studentBalanceLog.type }}</td>
-            <td>{{ studentBalanceLog.dateTime }}</td>
-
+            <td v-if="studentBalanceLog.type == 'i'" class="table-primary">{{ studentBalanceLog.transferName }}</td>
+            <td v-else class="table-danger">{{ studentBalanceLog.transferName }}</td>
+            <td v-if="studentBalanceLog.type == 'i'" class="table-primary">{{ studentBalanceLog.description }}</td>
+            <td v-else class="table-danger">{{ studentBalanceLog.description }}</td>
+            <td v-if="studentBalanceLog.type == 'i'" class="table-primary">{{ studentBalanceLog.amount }}</td>
+            <td v-else class="table-danger">{{ studentBalanceLog.amount }}</td>
+            <td v-if="studentBalanceLog.type == 'i'" class="table-primary">{{ studentBalanceLog.type }}</td>
+            <td v-else class="table-danger">{{ studentBalanceLog.type }}</td>
+            <td v-if="studentBalanceLog.type == 'i'" class="table-primary">{{ studentBalanceLog.dateTime }}</td>
+            <td v-else class="table-danger">{{ studentBalanceLog.dateTime }}</td>
           </tr>
-
-
           </tbody>
         </table>
       </div>
+
+<!--      <div v-if="studentBalanceLogTable">-->
+<!--        <table class="table table-hover" style="width:auto" align="center">-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th scope="col">Nimi</th>-->
+<!--            <th scope="col">Selgitus</th>-->
+<!--            <th scope="col">Summa</th>-->
+<!--            <th scope="col">Tüüp</th>-->
+<!--            <th scope="col">Kuupäev</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr v-for="studentBalanceLog in studentExpenses">-->
+<!--            <td>{{ studentBalanceLog.transferName }}</td>-->
+<!--            <td>{{ studentBalanceLog.description }}</td>-->
+<!--            <td>{{ studentBalanceLog.amount }}</td>-->
+<!--            <td>{{ studentBalanceLog.type }}</td>-->
+<!--            <td>{{ studentBalanceLog.dateTime }}</td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
 
 
       <div v-if="groupExpenseLogTableBoolean">
