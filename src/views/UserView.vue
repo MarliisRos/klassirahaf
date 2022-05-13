@@ -3,12 +3,12 @@
 
   <div>
     <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
-    <input placeholder="Description" v-model="groupInfoRequest.description"><br>
+    <input placeholder="Description" v-model="groupInfoRequest.description" v-on:keyup.enter="createNewGroup"><br>
     <button v-on:click="createNewGroup">Create new group</button>
     <br>
     <br>
 
-    <input placeholder="Group name" v-model="groupName"><br>
+    <input placeholder="Group name" v-model="groupName" v-on:keyup.enter="getGroupByGroupName"><br>
     <button v-on:click="getGroupByGroupName">Find and join group</button>
     <br>
     <br>

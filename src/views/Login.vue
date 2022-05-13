@@ -21,14 +21,14 @@
       <div class="d-inline-flex p-2">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <label class="input-group-text">Password</label>
+            <label class="input-group-text" >Password</label>
           </div>
-          <input type="password" v-model="password">
+          <input type="password" v-model="password" v-on:keyup.enter="logIn">
         </div>
       </div>
     </div>
 
-    <button type="button" v-on:click="logIn" class="btn btn-secondary">Login</button>
+    <button type="button" v-on:click="logIn" class="btn btn-secondary" >Login</button>
     <br>
     <br>
 
@@ -73,28 +73,15 @@ export default {
             }
           }
       ).then(response => {
-        alert("Sisselogimine õnnestus")
         this.userId = response.data.userId
         this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
         sessionStorage.setItem('roleId', this.roleId)
         this.$router.push({name: 'userViewRoute'})
 
-        // if (this.userRoleId === 4) {
-
-        //   this.$router.push({name: 'moderatorRoute'})
-        //
-        // } else {
-        //   this.$router.push({name: 'parentRoute'})
-        // }
-
-        // switch (this.userRoleId) {
-        //   case "4":
-        //     this.$router.push({name: 'moderatorRoute'})
-
     }
 ).catch(error => {
-  alert("Sisselogimine ei õnnestunud")
+  alert("Sisselogimine ei õnnestunud, vale kasutajanimi või parool")
   console.log(error)
 })
 },
@@ -107,5 +94,10 @@ export default {
 </script>
 
 <style scoped>
+
+.d-inline-flex {
+  color: blue;
+  border: violet;
+}
 
 </style>

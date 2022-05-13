@@ -1,14 +1,40 @@
 <template>
 
-  <div>
+
+  <div class="wholePage">
     <h3>Add new student to group</h3>
     <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
     <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
-    <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth"><br>
+    <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth" v-on:keyup.enter="addNewStudent"><br>
     <button v-on:click="addNewStudent">Add new student</button>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
+    <div>
+      <h1>Update parent info</h1>
+      <input placeholder="First name" v-model="newParentInfo.firstName"><br>
+      <input placeholder="Last name" v-model="newParentInfo.lastName"><br>
+      <input placeholder="Email address" v-model="newParentInfo.email"><br>
+      <input placeholder="Telephone number" v-model="newParentInfo.tel"><br>
+      <input placeholder="Bank account number" v-model="newParentInfo.accountNumber"><br>
+      <button v-on:click="updateParentInfo">Update parent info</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 
     <table class="table table-hover" style="width:auto" align="center">
@@ -37,6 +63,8 @@
           <button v-on:click="getGroupExpenses()" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
             Group expense log
           </button>
+
+
         </td>
       </tr>
       </tbody>
@@ -60,7 +88,7 @@
           <td>{{ studentBalanceLog.transferName }}</td>
           <td>{{ studentBalanceLog.description }}</td>
           <td>{{ studentBalanceLog.amount }}</td>
-          <td>{{ studentBalanceLog.type }}</td>
+          <td v-if="studentBalanceLog.type.equals.charAt()">{{ studentBalanceLog.type }}</td>
           <td>{{ studentBalanceLog.dateTime }}</td>
 
         </tr>
@@ -109,36 +137,40 @@ export default {
   data: function () {
 
     return {
-      tableDIV: false,
-      tableDIV2: true,
+
+
       isActive: false,
       studentBalanceLogTable: false,
       groupExpenseLogTableBoolean: false,
-      expenses: {},
+      studentExpenseLogTable: false,
 
-      groupId: sessionStorage.getItem('groupId'),
+      expenses: {},
       groupExpenseLogTable: {},
       groupExpenseLogTables: {},
-      studentExpenseLogTable: false,
-      date: new Date(),
-      groupInfoId: sessionStorage.getItem('groupId'),
-      parentUserId: sessionStorage.getItem('userId'),
-      newStudentInfo: {
-        groupInfoId: sessionStorage.getItem('groupId'),
-        parentUserId: sessionStorage.getItem('userId'),
-      },
+      students: {},
+      student: {},
+      studentBalanceLogs: {},
+      balance: {},
+      roleId: {},
+      group: {},
+
       studentId: 0,
       id: 0,
       groupName: "",
       description: "",
       groupBalanceBalance: 0,
-      userId: sessionStorage.getItem('userId'),
-      students: {},
-      student: {},
-      studentBalanceLogs: {},
-      balance: {},
 
-      group: {},
+      date: new Date(),
+
+      groupId: sessionStorage.getItem('groupId'),
+      groupInfoId: sessionStorage.getItem('groupId'),
+      parentUserId: sessionStorage.getItem('userId'),
+      userId: sessionStorage.getItem('userId'),
+
+      newStudentInfo: {
+        groupInfoId: sessionStorage.getItem('groupId'),
+        parentUserId: sessionStorage.getItem('userId'),
+      },
 
       groupInfoRequest: {
         userId: sessionStorage.getItem('userId'),
@@ -146,29 +178,21 @@ export default {
         description: ''
       },
 
-      roleId: {}
+      newParentInfo: {
+        userId: sessionStorage.getItem('userId'),
+        firstName: '',
+        lastName: '',
+        email: '',
+        tel: '',
+        accountNumber: ''
+
+      }
+
     }
 
   },
 
   methods: {
-
-    getStudentBalanceById: function (studentId) {
-
-      this.$http.get("/user/student-balance", {
-            params: {
-              id: studentId
-            }
-          }
-      ).then(response => {
-        this.balance = response.data
-        this.tableDIV2 = true
-        alert("õpilase loomine õnnestus")
-        console.log(response.data)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
 
     addNewStudent: function () {
 
@@ -176,6 +200,19 @@ export default {
       ).then(response => {
         alert("õpilase loomine õnnestus")
         this.$router.push({name: 'userViewRoute'})
+        console.log(response.data)
+      }).catch(error => {
+        alert("Kasutaja loomine ei õnnestunud")
+        console.log(error)
+      })
+    },
+
+
+    updateParentInfo: function () {
+
+      this.$http.post("/moderator/update-contact-info", this.newParentInfo
+      ).then(response => {
+        alert("õnnestus")
         console.log(response.data)
       }).catch(error => {
         alert("Kasutaja loomine ei õnnestunud")
@@ -208,8 +245,6 @@ export default {
           }
       ).then(response => {
         this.studentBalanceLogs = response.data
-        // this.studentBalanceLogTable = true
-
         if (this.groupExpenseLogTableBoolean === true) {
           this.groupExpenseLogTableBoolean = false
         }
@@ -251,57 +286,39 @@ export default {
       })
     },
 
-    //
-    // getGroupExpenseLogByGroupId: function () {
-    //
-    //   this.$http.get("/expense/expenses-by-group-id", {
-    //         params: {
-    //           groupId: this.groupId
-    //         }
-    //       }
-    //   ).then(response => {
-    //     alert("Õnnestus")
-    //     this.groupExpenseLogTableBoolean = true
-    //     this.groupExpenseLogTables = response.data
-    //     console.log(response.data)
-    //   }).catch(error => {
-    //     alert("Ei õnnestunud")
-    //     console.log(error)
-    //   })
-    // },
 
 
   },
 
-  // getYourGroup: function () {
-  //
-  //   this.$http.get("/expense/group-by-user-id", {
-  //         params: {
-  //           userId: this.userId,
-  //         }
-  //       }
-  //   ).then(response => {
-  //     this.yourGroups = response.data
-  //     this.groupId = response.data.groupId
-  //     sessionStorage.setItem('groupId', response.data.groupId)
-  //     console.log(response.data)
-  //   }).catch(error => {
-  //     console.log(error)
-  //   })
-  // },
-
 
   mounted() {
-    // this.getYourGroup()
     this.getStudentByUserId()
-    // this.getStudentBalanceById()
   },
 
 }
 
-
 </script>
 
 <style scoped>
+
+/*h3 {*/
+/*  color: violet;*/
+/*  alignment: right;*/
+
+/*}*/
+/*.first {*/
+/*  color: blueviolet;*/
+
+/*}*/
+
+/*.wholePage {*/
+/*  background: bisque;*/
+/*}*/
+
+
+/*.table-hover {*/
+/*  color: green;*/
+/*}*/
+
 
 </style>

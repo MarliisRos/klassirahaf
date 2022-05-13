@@ -129,10 +129,7 @@
           </button>
           <br>
           <br>
-          <br>
-          <br>
-
-      </div>
+        </div>
 
 
         <div class="tab-pane fade" id="regStud" role="tabpanel" aria-labelledby="regStud-tab">
@@ -191,6 +188,8 @@
           </table>
           <button v-on:click="registerStudents()" class="btn btn-success" style="alignment: center">Registreeri õpilasi
           </button>
+          <br>
+          <br>
         </div>
 
         <div class="tab-pane fade" id="addExpense" role="tabpanel" aria-labelledby="addExpense-tab" align="center">
@@ -223,6 +222,27 @@
                      aria-describedby="inputGroup-sizing-default">
             </div>
 
+            <div>
+              <br>
+              <div class="input-group" style="width: 400px">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" @change="handleImage" accept="image/x-png, image/jpeg"
+                         id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                  <label class="custom-file-label" for="inputGroupFile04">{{ pictureMessage }}</label>
+                </div>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" v-on:click="addNewReceiptPicture">Lisa pilt
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--            <div>-->
+            <!--              <br>-->
+            <!--            <input type="file"  @change="handleImage" accept="image/x-png, image/jpeg">-->
+            <!--            <button v-on:click="addNewReceiptPicture"  type="button" class="btn btn-light btn-sm">Lisa pilt</button>-->
+            <!--            </div>-->
+
           </div>
 
           <div>
@@ -254,35 +274,61 @@
               </table>
 
               <button v-on:click="addNewExpense()" class="btn btn-secondary">Lisa kulu</button>
-
+              <br>
+              <br>
             </div>
           </div>
         </div>
 
-        <div class="tab-pane fade" id="allExpenses" role="tabpanel" aria-labelledby="allExpenses-tab">
+
+        <div class="tab-pane fade" id="allExpenses" role="tabpanel"
+             aria-labelledby="allExpenses-tab">
           <br>
-          <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
-          <br>
-          <table class="table table-hover" style="width:auto" align="center">
-            <thead>
-            <tr>
-              <th scope="col">Kulu nimi</th>
-              <th scope="col">Selgitus</th>
-              <th scope="col">Summa</th>
-              <th scope="col">Kuupäev</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="expence in expenses">
-              <td>{{ expence.name }}</td>
-              <td>{{ expence.description }}</td>
-              <td>{{ expence.amount }}</td>
-              <td>{{ expence.dateAndTime }}</td>
-            </tr>
+          <div v-if="groupExpenseLogDiv">
+            <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
             <br>
-            </tbody>
-          </table>
+            <table class="table table-hover" style="width:auto" align="center">
+              <thead>
+              <tr>
+                <th scope="col">Kulu nimi</th>
+                <th scope="col">Selgitus</th>
+                <th scope="col">Summa</th>
+                <th scope="col">Kuupäev</th>
+                <th scope="col">Vaata pilti</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="expence in expenses">
+                <td>{{ expence.name }}</td>
+                <td>{{ expence.description }}</td>
+                <td>{{ expence.amount }}</td>
+                <td>{{ expence.dateAndTime }}</td>
+                <td>
+                  <button v-on:click="getReceiptPictures(expence.expenseId)" type="button" class="btn btn-light btn-sm">
+                    Vaata pilti
+                  </button>
+                </td>
+              </tr>
+              <br>
+              </tbody>
+            </table>
+          </div>
+
+          <div v-if="expencePictureDiv">
+            <button v-on:click="toExpenseLogDiv()" class="btn btn-secondary ">Tagasi</button>
+            <br>
+            <br>
+            <div v-for="picture in pictures">
+              <label>{{ picture.title }}</label>
+              <img :src="picture.data" style="max-width: 600px">
+              <br>
+              <br>
+            </div>
+          </div>
+
         </div>
+
+
       </div>
     </div>
 
@@ -297,7 +343,7 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Perekonnanimi</span>
+          <span class="input-group-text">Perekonnanimi</span>
         </div>
         <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -305,7 +351,7 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
+          <span class="input-group-text">E-mail</span>
         </div>
         <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -313,14 +359,14 @@
 
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Telefon</span>
+          <span class="input-group-text">Telefon</span>
         </div>
         <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
       </div>
       <div class="input-group mb-3" style="width: 300px">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Pangakontonumber</span>
+          <span class="input-group-text">Pangakontonumber</span>
         </div>
         <input type="text" v-model="contactRequest.accountNumber" class="form-control" aria-label="Sizing example input"
                aria-describedby="inputGroup-sizing-default">
@@ -351,9 +397,12 @@ export default {
     return {
       mainDiv: true,
       addMoneyDiv: false,
+      expencePictureDiv: false,
+      groupExpenseLogDiv: true,
       contactDiv: false,
       updateContactDiv: false,
       groupStudents: {},
+      pictureMessage: 'Vali pilt',
       studentFirstName: sessionStorage.getItem('studentFirstName'),
       studentLastName: '',
       studentInfo: {},
@@ -373,6 +422,9 @@ export default {
       firstName: '',
       lastName: '',
       tel: '',
+      pictureExport: {},
+      picId: 0,
+      pictures: {},
       contactRequest: {
         id: sessionStorage.getItem('userId'),
         firstName: '',
@@ -383,6 +435,7 @@ export default {
       },
       expenseRequest: {
         groupId: sessionStorage.getItem('groupId'),
+        pictureId: null,
         name: '',
         description: '',
         amount: null,
@@ -396,6 +449,7 @@ export default {
     toMainView: function () {
       this.updateContactDiv = false
       this.mainDiv = true
+      this.contactRequest ={}
     },
 
     toAddMoneyDiv: function (student) {
@@ -403,6 +457,16 @@ export default {
       this.studentFirstName = student.firstName
       this.studentLastName = student.lastName
       sessionStorage.setItem('studentId', student.studentId)
+    },
+
+    toExpensePictureDiv: function () {
+      this.groupExpenseLogDiv = false
+      this.expencePictureDiv = true
+    },
+
+    toExpenseLogDiv: function () {
+      this.groupExpenseLogDiv = true
+      this.expencePictureDiv = false
     },
 
     toUpdateContact: function () {
@@ -421,7 +485,7 @@ export default {
     },
 
     toParentView: function () {
-      this.$router.push({name: 'parentRoute'})
+      this.$router.push({name: 'userViewRoute'})
     },
 
     getGroupStudents: function () {
@@ -463,6 +527,7 @@ export default {
         sessionStorage.removeItem('studentId')
         this.getGroupStudents()
         this.addMoneyDiv = false
+        this.amount = null
       }).catch(error => {
         console.log(error)
       })
@@ -472,8 +537,8 @@ export default {
     addNewExpense: function () {
       this.$http.post("/moderator/new-expense", this.expenseRequest
       ).then(response => {
-        console.log(this.expenseRequest)
-        console.log(response.data)
+        this.expenseRequest = {}
+        this.getGroupExpenses()
       }).catch(error => {
         console.log(error)
       })
@@ -562,6 +627,49 @@ export default {
         console.log(error)
       })
     },
+
+
+    handleImage(event) {
+
+      const selectedImage = event.target.files[0];
+      this.createBase64Image(selectedImage);
+    },
+
+    createBase64Image(fileObject) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.pictureExport.data = reader.result;
+      };
+      reader.onerror = function (error) {
+        alert(error);
+      }
+      reader.readAsDataURL(fileObject);
+    },
+
+
+    addNewReceiptPicture: function () {
+      this.$http.post("/receipt-picture/in", this.pictureExport
+      ).then(response => {
+        this.expenseRequest.pictureId = response.data
+        this.pictureMessage = 'Pilt lisatud'
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getReceiptPictures: function (expenseId) {
+      this.$http.get("/receipt-picture/all", {
+            params: {
+              expenseId: expenseId
+            }
+          }
+      ).then(response => {
+        this.toExpensePictureDiv()
+        this.pictures = response.data
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
 
 
   },
