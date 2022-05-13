@@ -32,9 +32,8 @@
       </div>
     </div>
 
-    <button type="button" v-on:click="logIn" class="btn btn-secondary" style="width: 120px" >Logi sisse</button>
-    <br>
-    <br>
+    <button type="button" v-on:click="logIn" class="btn btn-secondary m-2" style="width: 120px" >Logi sisse</button>
+
 
     <button type="button" v-on:click="toRegisterView" class="btn btn-secondary" style="width: 120px">Registreeri</button>
 

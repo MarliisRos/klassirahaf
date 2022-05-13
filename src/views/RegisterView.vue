@@ -3,6 +3,12 @@
 
 
  <div>
+   <div align="left">
+     <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
+     </button>
+     <br>
+     <br>
+   </div>
    <div>
      <img
          src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"

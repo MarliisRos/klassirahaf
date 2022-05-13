@@ -3,6 +3,8 @@
 
   <div>
     <div align="left">
+      <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
+      </button>
       <button v-on:click="toParentView()" class="btn btn-light btn-sm m-1">Vanema leheküljele
       </button>
       <button v-on:click="toUpdateContact()" class="btn btn-light btn-sm m-1" style="alignment: right">Uuenda kontaktandmed
@@ -326,10 +328,7 @@
               <br>
             </div>
           </div>
-
         </div>
-
-
       </div>
     </div>
 
@@ -446,6 +445,10 @@ export default {
   },
 
   methods: {
+
+    toMainPage: function () {
+      this.$router.push({name: 'userViewRoute'})
+    },
 
     toMainView: function () {
       this.updateContactDiv = false
