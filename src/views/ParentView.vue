@@ -4,13 +4,13 @@
   <div class="wholePage">
 
     <div align="left">
-    <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
+      <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
       </button>
-    <button v-on:click="toUpdateContact()" class="btn btn-light btn-sm m-1" style="alignment: right">Uuenda
-      kontaktandmed
-    </button>
-    <br>
-    <br>
+      <button v-on:click="toUpdateContact()" class="btn btn-light btn-sm m-1" style="alignment: right">Uuenda
+        kontaktandmed
+      </button>
+      <br>
+      <br>
     </div>
 
     <div>
@@ -22,49 +22,43 @@
 
     <div v-if="mainDiv">
 
-      <h3>Add new student to group</h3>
-      <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
-      <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
-      <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth" v-on:keyup.enter="addNewStudent"><br>
-      <button v-on:click="addNewStudent">Add new student</button>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-
-      <!--    <div>-->
-      <!--      <h1>Update parent info</h1>-->
-      <!--      <input placeholder="First name" v-model="newParentInfo.firstName"><br>-->
-      <!--      <input placeholder="Last name" v-model="newParentInfo.lastName"><br>-->
-      <!--      <input placeholder="Email address" v-model="newParentInfo.email"><br>-->
-      <!--      <input placeholder="Telephone number" v-model="newParentInfo.tel"><br>-->
-      <!--      <input placeholder="Bank account number" v-model="newParentInfo.accountNumber"><br>-->
-      <!--      <button v-on:click="updateParentInfo">Update parent info</button>-->
-      <!--    </div>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
-      <!--    <br>-->
+      <h3>Registreeri uus laps valitud gruppi</h3>
+      <div align="center">
+        <div class="input-group input-group-sm mb-3" style="width: 250px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 110px">Eesnimi</span>
+          </div>
+          <input type="text" v-model="newStudentInfo.firstName" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3" style="width: 250px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 110px">Perekonnanimi</span>
+          </div>
+          <input type="text" v-model="newStudentInfo.lastName" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3" style="width: 250px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 110px">Sündinud:</span>
+          </div>
+          <input type="date" v-model="newStudentInfo.dateOfBirth" v-on:keyup.enter="addNewStudent" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <button v-on:click="addNewStudent()" class="btn btn-secondary m-3">Lisa laps gruppi</button>
+        <br>
+        <br>
+        <br>
+      </div>
 
 
       <table class="table table-hover" style="width:auto" align="center">
         <thead>
         <tr>
-          <th scope="col">First name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">Student balance</th>
-          <th scope="col">Group balance</th>
+          <th scope="col">Eesnimi</th>
+          <th scope="col">Perekonnanimi</th>
+          <th scope="col">Bilanss</th>
+          <th scope="col">Grupi bilanss</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -74,33 +68,28 @@
           <td>{{ student.lastName }}</td>
           <td>{{ student.studentBalanceAmount }}</td>
           <td>{{ student.groupBalanceAmount }}</td>
-
           <td>
             <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" name="btn"
                     class="btn btn-secondary btn-sm m-3">
-              Show student balance log
+              Näita lapse bilanss loge
             </button>
-
             <button v-on:click="getGroupExpenses()" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
-              Group expense log
+              Näita grupi kulusid
             </button>
-
-
           </td>
         </tr>
         </tbody>
       </table>
 
       <div v-if="studentBalanceLogTable">
-
         <table class="table table-hover" style="width:auto" align="center">
           <thead>
           <tr>
-            <th scope="col">Transfer name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Type</th>
-            <th scope="col">Date and time</th>
+            <th scope="col">Nimi</th>
+            <th scope="col">Selgitus</th>
+            <th scope="col">Summa</th>
+            <th scope="col">Tüüp</th>
+            <th scope="col">Kuupäev</th>
 
           </tr>
           </thead>
@@ -117,12 +106,10 @@
 
           </tbody>
         </table>
-
       </div>
 
 
       <div v-if="groupExpenseLogTableBoolean">
-
         <table class="table table-hover" style="width:auto" align="center">
           <thead>
           <tr>
@@ -142,7 +129,6 @@
           <br>
           </tbody>
         </table>
-
       </div>
     </div>
 

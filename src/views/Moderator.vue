@@ -334,46 +334,47 @@
 
 
     <div v-if="updateContactDiv" align="center">
-      <div class="input-group mb-3" style="width: 300px">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Eesnimi</span>
-        </div>
-        <input type="text" v-model="contactRequest.firstName" class="form-control">
-      </div>
 
-      <div class="input-group mb-3" style="width: 300px">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Perekonnanimi</span>
-        </div>
-        <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
-               aria-describedby="inputGroup-sizing-default">
-      </div>
 
-      <div class="input-group mb-3" style="width: 300px">
-        <div class="input-group-prepend">
-          <span class="input-group-text">E-mail</span>
+        <div class="input-group input-group-sm mb-3" style="width: 350px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Eesnimi</span>
+          </div>
+          <input type="text" v-model="contactRequest.firstName" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
         </div>
-        <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
-               aria-describedby="inputGroup-sizing-default">
-      </div>
+        <div class="input-group input-group-sm mb-3" style="width: 350px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Perekonnanimi</span>
+          </div>
+          <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3" style="width: 350px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">E-mail</span>
+          </div>
+          <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3" style="width: 350px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Telefoninumber</span>
+          </div>
+          <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
+                 aria-describedby="inputGroup-sizing-sm">
+        </div>
 
-      <div class="input-group mb-3" style="width: 300px">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Telefon</span>
+        <div class="input-group input-group-sm mb-3" style="width: 350px">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Pangakontonumber</span>
+          </div>
+          <input type="text" v-model="contactRequest.accountNumber" class="form-control"
+                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
-        <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
-               aria-describedby="inputGroup-sizing-default">
-      </div>
-      <div class="input-group mb-3" style="width: 300px">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Pangakontonumber</span>
-        </div>
-        <input type="text" v-model="contactRequest.accountNumber" class="form-control" aria-label="Sizing example input"
-               aria-describedby="inputGroup-sizing-default">
-      </div>
-      <br>
-      <button v-on:click="updateContactInfo()" class="btn btn-secondary m-3">Uuenda kontaktandmed</button>
-      <button v-on:click="toMainView()" class="btn btn-secondary">Tagasi</button>
+        <button v-on:click="updateContactInfo()" class="btn btn-secondary m-3">Uuenda kontaktandmed</button>
+        <button v-on:click="toMainView()" class="btn btn-secondary">Tagasi</button>
+
       <br>
       <br>
     </div>
