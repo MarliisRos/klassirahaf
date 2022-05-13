@@ -6,6 +6,7 @@ import Moderator from "@/views/Moderator";
 import RegisterView from "@/views/RegisterView";
 import ParentView from "@/views/ParentView";
 import UserView from "@/views/UserView";
+import TestView from "@/views/TestView";
 
 Vue.use(VueRouter)
 
@@ -40,7 +41,11 @@ const routes = [
         name: 'moderatorRoute',
         component: Moderator
     },
-
+    {
+        path: '/test',
+        name: 'testRoute',
+        component: TestView
+    },
 
 
     {

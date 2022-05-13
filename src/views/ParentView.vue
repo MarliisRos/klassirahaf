@@ -1,48 +1,16 @@
 <template>
 
   <div>
-    <h3>Add new student to group</h3>
-    <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
-    <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
-    <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth"><br>
-    <button v-on:click="addNewStudent">Add new student</button>
+    <form id="opilane">
+      <h1>Lisa õpilane</h1>
+      <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
+      <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
+      <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth"><br>
+      <button v-on:click="addNewStudent">Add new student</button>
+      <br>
+    </form>
     <br>
     <br>
-
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-
-
-    <!--      <b-navbar toggleable type="dark" variant="dark">-->
-    <!--        <b-navbar-brand href="#">First Name</b-navbar-brand>-->
-
-    <!--        <b-navbar-toggle target="navbar-toggle-collapse">-->
-    <!--          <template #default="{ expanded }">-->
-    <!--            <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>-->
-    <!--            <b-icon v-else icon="chevron-bar-down"></b-icon>-->
-    <!--          </template>-->
-    <!--        </b-navbar-toggle>-->
-
-    <!--        <b-collapse id="navbar-toggle-collapse" is-nav>-->
-    <!--          <b-navbar-nav class="ml-auto">-->
-    <!--            <b-nav-item href="#">Link 1</b-nav-item>-->
-    <!--            <b-nav-item href="#">Link 2</b-nav-item>-->
-    <!--            <b-nav-item href="#" disabled>Disabled</b-nav-item>-->
-    <!--          </b-navbar-nav>-->
-    <!--        </b-collapse>-->
-    <!--      </b-navbar>-->
-
-
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-    <!--    <br>-->
-
 
     <table class="table table-hover" style="width:auto" align="center">
       <thead>
@@ -134,32 +102,32 @@
 
     </div>
 
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
 
 
-<!--    <input placeholder="StudentId" v-model="id"><br>-->
-<!--    <button v-on:click="getStudentBalanceById">Get student balance info</button>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <input placeholder="Get students by user id" v-model="userId"><br>-->
-<!--    <button v-on:click="getStudentByUserId">Get students by user id</button>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <input placeholder="Get student balance log by student id" v-model="studentId"><br>-->
-<!--    <button v-on:click="getStudentBalanceLogByStudentId">Get student balance log by student id</button>-->
+    <!--    <input placeholder="StudentId" v-model="id"><br>-->
+    <!--    <button v-on:click="getStudentBalanceById">Get student balance info</button>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <input placeholder="Get students by user id" v-model="userId"><br>-->
+    <!--    <button v-on:click="getStudentByUserId">Get students by user id</button>-->
+    <!--    <br>-->
+    <!--    <br>-->
+    <!--    <input placeholder="Get student balance log by student id" v-model="studentId"><br>-->
+    <!--    <button v-on:click="getStudentBalanceLogByStudentId">Get student balance log by student id</button>-->
 
 
-<!--    <input placeholder="Student" v-model="id"><br>-->
-<!--    <button v-on:click="getStudentBalanceById">Add student to group</button>-->
+    <!--    <input placeholder="Student" v-model="id"><br>-->
+    <!--    <button v-on:click="getStudentBalanceById">Add student to group</button>-->
 
 
   </div>
@@ -368,5 +336,10 @@ export default {
 </script>
 
 <style scoped>
+#opilane {
+  border: 5px solid white;
+  border-width: 5px;
+
+}
 
 </style>

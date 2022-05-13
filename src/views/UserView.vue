@@ -1,22 +1,15 @@
 <template>
 
-
   <div>
     <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
     <input placeholder="Description" v-model="groupInfoRequest.description"><br>
     <button v-on:click="createNewGroup">Create new group</button>
     <br>
     <br>
-
     <input placeholder="Group name" v-model="groupName"><br>
     <button v-on:click="getGroupByGroupName">Find and join group</button>
     <br>
     <br>
-
-
-    <br>
-    <br>
-
 
     <div v-if="groupListDiv">
       <table class="table table-hover" style="width:auto" align="center">
@@ -41,11 +34,7 @@
       </table>
 
     </div>
-
   </div>
-
-
-
 
 </template>
 

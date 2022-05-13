@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/user">User</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/parent">Parent</router-link> |
-      <router-link to="/moderator">Moderator</router-link> |
-      <router-link to="/l">Log out</router-link> |
+      <router-link to="/about">ABOUT</router-link> |
+      <router-link to="/user">USER</router-link> |
+      <router-link to="/login">LOGIN</router-link> |
+      <router-link to="/parent">PARENT</router-link> |
+      <router-link to="/moderator">MODERATOR</router-link> |
+      <router-link to="/l">LOGOUT</router-link> |
+      <router-link to="/test">TEST</router-link> |
     </nav>
     <router-view/>
   </div>
@@ -13,11 +15,11 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: red;
 }
 
 nav {

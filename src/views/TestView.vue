@@ -1,8 +1,5 @@
 <template>
-
-
   <div>
-
     <h1>Sisselogimine</h1>
 
     <div>
@@ -26,19 +23,20 @@
       </div>
     </div>
 
+    <div align="center">
     <button type="button" v-on:click="logIn" class="btn btn-secondary">Login</button>
-    <br>
-    <br>
-
-
     <button type="button" v-on:click="toRegisterView" class="btn btn-secondary">Registreeri</button>
+    </div>
 
-
+    <div class="row">
+      <div class="col">
+        <input type="userName" v-model="userName" class="form-control" placeholder="Kasutajanimi"><br>
+        <input type="password" v-model="password" class="form-control" placeholder="Parool">
+      </div>
+    </div>
 
   </div>
-
-
-</template>
+ </template>
 
 <script>
 export default {
@@ -71,39 +69,27 @@ export default {
             }
           }
       ).then(response => {
-        alert("Sisselogimine õnnestus")
-        this.userId = response.data.userId
-        this.roleId = response.data.roleId
-        sessionStorage.setItem('userId', this.userId)
-        sessionStorage.setItem('roleId', this.roleId)
-        this.$router.push({name: 'userViewRoute'})
+            alert("Sisselogimine õnnestus")
+            this.userId = response.data.userId
+            this.roleId = response.data.roleId
+            sessionStorage.setItem('userId', this.userId)
+            sessionStorage.setItem('roleId', this.roleId)
+            this.$router.push({name: 'userViewRoute'})
+          }
+      ).catch(error => {
+        alert("Sisselogimine ei õnnestunud")
+        console.log(error)
+      })
+    },
 
-        // if (this.userRoleId === 4) {
-
-        //   this.$router.push({name: 'moderatorRoute'})
-        //
-        // } else {
-        //   this.$router.push({name: 'parentRoute'})
-        // }
-
-        // switch (this.userRoleId) {
-        //   case "4":
-        //     this.$router.push({name: 'moderatorRoute'})
-
-    }
-).catch(error => {
-  alert("Sisselogimine ei õnnestunud")
-  console.log(error)
-})
-},
-
-},
-
+  },
 }
 
 
 </script>
 
 <style scoped>
+
+
 
 </style>
