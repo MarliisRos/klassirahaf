@@ -94,11 +94,11 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="studentBalanceLog in studentBalanceLogs">
+          <tr v-for="studentBalanceLog in studentExpenses">
             <td>{{ studentBalanceLog.transferName }}</td>
             <td>{{ studentBalanceLog.description }}</td>
             <td>{{ studentBalanceLog.amount }}</td>
-            <td v-if="studentBalanceLog.type.equals.charAt()">{{ studentBalanceLog.type }}</td>
+            <td>{{ studentBalanceLog.type }}</td>
             <td>{{ studentBalanceLog.dateTime }}</td>
 
           </tr>
@@ -199,7 +199,7 @@ export default {
       isActive: false,
       studentBalanceLogTable: false,
       groupExpenseLogTableBoolean: false,
-      studentExpenseLogTable: false,
+
 
       contactRequest: {
         id: sessionStorage.getItem('userId'),
@@ -219,9 +219,9 @@ export default {
       balance: {},
       roleId: {},
       group: {},
+      studentExpenses: {},
 
-      studentId: 0,
-      id: 0,
+      studentId: sessionStorage.getItem('studentId'),
       groupName: "",
       description: "",
       groupBalanceBalance: 0,
@@ -355,7 +355,7 @@ export default {
             }
           }
       ).then(response => {
-        this.studentBalanceLogs = response.data
+        this.studentExpenses = response.data
         if (this.groupExpenseLogTableBoolean === true) {
           this.groupExpenseLogTableBoolean = false
         }
