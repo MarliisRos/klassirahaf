@@ -6,14 +6,20 @@ import Moderator from "@/views/Moderator";
 import RegisterView from "@/views/RegisterView";
 import ParentView from "@/views/ParentView";
 import UserView from "@/views/UserView";
+import logout from "@/views/LogoutView";
+import LogoutView from "@/views/LogoutView";
 
 Vue.use(VueRouter)
 
 const routes = [
+    // {
+    //     path: '/',
+    //     name: 'homeRoute',
+    //     component: HomeView
+    // },
     {
         path: '/',
-        name: 'homeRoute',
-        component: HomeView
+        redirect: '/login'
     },
 
     {
@@ -48,6 +54,13 @@ const routes = [
         name: 'parentRoute',
         component: ParentView
     },
+
+    {
+        path: '/logout',
+        name: 'logoutRoute',
+        component: LogoutView
+    },
+
     {
         path: '/about',
         name: 'about',

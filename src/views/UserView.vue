@@ -2,29 +2,54 @@
 
 
   <div>
-    <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
-    <input placeholder="Description" v-model="groupInfoRequest.description"><br>
-    <button v-on:click="createNewGroup">Create new group</button>
-    <br>
-    <br>
-
-    <input placeholder="Group name" v-model="groupName"><br>
-    <button v-on:click="getGroupByGroupName">Find and join group</button>
-    <br>
+    <div>
+      <img
+          src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"
+          alt="">
+    </div>
     <br>
 
-
+    <div align="center">
+    <div class="input-group mb-3" style="width: 300px" >
+      <div class="input-group-prepend">
+        <span class="input-group-text">Gruppi nimi</span>
+      </div>
+      <input type="text" v-model="groupInfoRequest.groupName" class="form-control">
+    </div>
+    <div class="input-group mb-3" style="width: 300px">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Selgitus</span>
+      </div>
+      <input type="text" v-model="groupInfoRequest.description" v-on:keyup.enter="createNewGroup" class="form-control">
+    </div>
+    <button v-on:click="createNewGroup()" class="btn btn-secondary">Loo uus grupp</button>
     <br>
     <br>
+    <br>
+    <br>
+    </div>
 
+    <div align="center">
+    <div class="input-group mb-3" style="width: 300px">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Gruppi nimi</span>
+      </div>
+      <input type="text" v-model="groupName" v-on:keyup.enter="getGroupByGroupName" class="form-control">
+    </div>
+    <button v-on:click="getGroupByGroupName()" class="btn btn-secondary">Otsi grupp</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    </div>
 
     <div v-if="groupListDiv">
       <table class="table table-hover" style="width:auto" align="center">
         <thead>
         <tr>
-          <th scope="col">Group name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Select group</th>
+          <th scope="col">Gruppi nimi</th>
+          <th scope="col">Selgitus</th>
+          <th scope="col">Vali grupp</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -33,7 +58,7 @@
           <td>{{ group.groupName }}</td>
           <td>{{ group.description }}</td>
           <td>
-            <button v-on:click="selectGroup(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm m-3">Vali grupp
+            <button v-on:click="selectGroup(group.groupId)" type="button" name="btn" class="btn btn-secondary btn-sm">Vali grupp
             </button>
           </td>
         </tr>
@@ -54,48 +79,27 @@ export default {
   data: function () {
 
     return {
-
-      foundGroupBoolean : false,
       isModerator: false,
-      yourGroups: {},
       groupListDiv: true,
-      tableDIV: false,
-      tableDIV2: true,
       userId: sessionStorage.getItem('userId'),
-      groupId: sessionStorage.getItem('groupId'),
-      roleId: 0,
-      studentId: 0,
-      id: 0,
+      roleId: sessionStorage.getItem('roleId'),
+      studentId: sessionStorage.getItem('studentId'),
       groupName: "",
       description: "",
-      groupBalanceBalance: 0,
-      students: {},
-      studentBalanceLogs: {},
-      balance: {},
+      yourGroups: {},
       group: {},
       groupByGroupId: {},
-      newStudent: {
-        groupInfoId: 0,
-        parentUserId: 0,
-        firstName: '',
-        lastName: '',
-        dateOfBirth: Date
-
-      },
-
       groupInfoRequest: {
         userId: sessionStorage.getItem('userId'),
         groupName: '',
         description: ''
       },
     }
-
   },
 
   methods: {
 
     getYourGroup: function () {
-
       this.$http.get("/expense/group-by-user-id", {
             params: {
               userId: this.userId,
@@ -127,7 +131,6 @@ export default {
     },
 
     getGroupByGroupName: function () {
-
       this.$http.get("/user/group-by-name", {
             params: {
               groupName: this.groupName
@@ -135,11 +138,9 @@ export default {
           }
       ).then(response => {
         this.group = response.data
-        alert("sain grupi info")
         this.groupId = response.data.groupId
         sessionStorage.setItem('groupId', response.data.groupId)
         this.$router.push({name: 'parentRoute'})
-
         console.log(response.data)
       }).catch(error => {
         alert("Group with a name " + this.groupName + " not found!")
@@ -155,10 +156,6 @@ export default {
           }
       ).then(response => {
         this.group = response.data
-        // sessionStorage.setItem('groupId', response.data.groupId)
-        // sessionStorage.setItem('roleId', response.data.groupId)
-        // this.isModerator = response.data.isModerator
-
         if (response.data.isModerator) {
           this.$router.push({name: 'moderatorRoute'})
           this.groupId = response.data.groupId
@@ -170,7 +167,6 @@ export default {
           sessionStorage.setItem('groupId', response.data.groupId)
           console.log(response.data.isModerator)
         }
-        // console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
@@ -178,9 +174,6 @@ export default {
 
   },
 
-  foundGroup: function () {
-    this.foundGroupBoolean = true
-  },
 
   mounted() {
     this.getYourGroup()

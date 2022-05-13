@@ -2,12 +2,13 @@
 
 
   <div>
-    <div align="right">
-      <button v-on:click="toParentView()" class="btn btn-light btn-sm">Vanema leheküljele
+    <div align="left">
+      <button v-on:click="toParentView()" class="btn btn-light btn-sm m-1">Vanema leheküljele
+      </button>
+      <button v-on:click="toUpdateContact()" class="btn btn-light btn-sm m-1" style="alignment: right">Uuenda kontaktandmed
       </button>
       <br>
-      <button v-on:click="toUpdateContact()" class="btn btn-light btn-sm" style="alignment: right">Uuenda kontaktandmed
-      </button>
+      <br>
     </div>
 
     <div>
@@ -485,7 +486,7 @@ export default {
     },
 
     toParentView: function () {
-      this.$router.push({name: 'userViewRoute'})
+      this.$router.push({name: 'parentRoute'})
     },
 
     getGroupStudents: function () {

@@ -2,19 +2,20 @@
 
 
   <div>
-
     <div>
       <img
           src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"
           alt="">
     </div>
     <br>
+
     <h1>Log in</h1>
+
     <div>
-      <div class="d-inline-flex p-2">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text">Username</label>
+      <div class="d-inline-flex p-2" >
+        <div class="input-group mb-3" >
+          <div class="input-group-prepend" >
+            <label class="input-group-text" style="width: 115px">Kasutajanimi</label>
           </div>
           <input type="text" v-model="userName">
         </div>
@@ -24,17 +25,18 @@
       <div class="d-inline-flex p-2">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <label class="input-group-text">Password</label>
+            <label class="input-group-text"  style="width: 115px; text-align: right" >Parool</label>
           </div>
-          <input type="password" v-model="password">
+          <input type="password" v-model="password" v-on:keyup.enter="logIn">
         </div>
       </div>
     </div>
 
-    <button type="button" v-on:click="logIn" class="btn btn-secondary m-3" style="width: 100px" >Login</button>
-    <button type="button" v-on:click="toRegisterView" class="btn btn-secondary" style="width: 100px">Registreeri</button>
+    <button type="button" v-on:click="logIn" class="btn btn-secondary" style="width: 120px" >Logi sisse</button>
+    <br>
+    <br>
 
-
+    <button type="button" v-on:click="toRegisterView" class="btn btn-secondary" style="width: 120px">Registreeri</button>
 
   </div>
 
@@ -72,7 +74,6 @@ export default {
             }
           }
       ).then(response => {
-        alert("Sisselogimine õnnestus")
         this.userId = response.data.userId
         this.roleId = response.data.roleId
         sessionStorage.setItem('userId', this.userId)
@@ -81,7 +82,7 @@ export default {
 
     }
 ).catch(error => {
-  alert("Sisselogimine ei õnnestunud")
+  alert("Sisselogimine ei õnnestunud, vale kasutajanimi või parool")
   console.log(error)
 })
 },
@@ -94,5 +95,10 @@ export default {
 </script>
 
 <style scoped>
+
+.d-inline-flex {
+  color: blue;
+  border: violet;
+}
 
 </style>
