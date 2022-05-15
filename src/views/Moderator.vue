@@ -10,12 +10,12 @@
       </button>
     </div>
 
-    <div>
-      <img
-          src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"
-          alt="">
-    </div>
-    <br>
+<!--    <div calss="image">-->
+<!--      <img-->
+<!--          src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"-->
+<!--          alt="">-->
+<!--    </div>-->
+
 
     <div v-if="mainDiv">
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">

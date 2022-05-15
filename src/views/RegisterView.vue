@@ -1,7 +1,9 @@
 <template>
 
  <div>
-  <h1>Create new user</h1>
+   <div class="pealkiri">
+  <h1>Registreeru</h1>
+     </div>
   <input placeholder="First name" v-model="newUserInfo.contactFirstName"><br>
   <input placeholder="Last name" v-model="newUserInfo.contactLastName"><br>
   <input placeholder="Email address" v-model="newUserInfo.contactEmail"><br>
@@ -47,14 +49,19 @@ export default {
         console.log(error)
       })
     },
-
   },
-
 }
-
 
 </script>
 
 <style scoped>
+.pealkiri h1 {
+  font-family:"Times New Roman";
+  font-size: 40px;
+  padding-left: 20px;
+  margin-top: 2%;
+  letter-spacing: 1.8px;
+  color: chocolate;
+}
 
 </style>

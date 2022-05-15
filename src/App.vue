@@ -7,7 +7,6 @@
       <router-link to="/parent">PARENT</router-link> |
       <router-link to="/moderator">MODERATOR</router-link> |
       <router-link to="/l">LOGOUT</router-link> |
-      <router-link to="/test">TEST</router-link> |
     </nav>
     <router-view/>
   </div>
@@ -15,24 +14,24 @@
 
 <style>
 #app {
-  font-family: "Times New Roman";
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color:#2c3e50;
+  color: midnightblue;
 }
 
 nav {
-  padding: 30px;
+  padding: 10px;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
-  color: red;
+  color: midnightblue;
+  color: midnightblue;
 }
 nav a.router-link-exact-active {
-  color: #2c3e50;
-  hover: #2c3e50;
+  color: chocolate;
+  hover: chocolate;
 }
 </style>

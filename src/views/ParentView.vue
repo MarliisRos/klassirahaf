@@ -1,14 +1,15 @@
 <template>
 
   <div>
-    <form id="opilane">
+    <div class="pealkiri">
       <h1>Lisa õpilane</h1>
+      </div>
       <input placeholder="First name" v-model="newStudentInfo.firstName"><br>
       <input placeholder="Last name" v-model="newStudentInfo.lastName"><br>
       <input type="date" name="birthDate" v-model="newStudentInfo.dateOfBirth"><br>
       <button v-on:click="addNewStudent">Add new student</button>
       <br>
-    </form>
+
     <br>
     <br>
 
@@ -336,6 +337,15 @@ export default {
 </script>
 
 <style scoped>
+
+.pealkiri h1 {
+  font-family:"Times New Roman";
+  font-size: 40px;
+  padding-left: 20px;
+  margin-top: 2%;
+  letter-spacing: 1.8px;
+  color: chocolate;
+}
 #opilane {
   border: 5px solid white;
   border-width: 5px;

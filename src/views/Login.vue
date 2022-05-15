@@ -1,10 +1,8 @@
 <template>
-
-
   <div>
-
+    <div class="pealkiri">
     <h1>Sisselogimine</h1>
-
+</div>
     <div>
       <div class="d-inline-flex p-2">
         <div class="input-group mb-3">
@@ -105,5 +103,14 @@ export default {
 </script>
 
 <style scoped>
+.pealkiri h1 {
+  font-family:"Times New Roman";
+  font-size: 40px;
+  padding-left: 20px;
+  margin-top: 2%;
+  letter-spacing: 1.8px;
+  color: chocolate;
+}
+
 
 </style>
