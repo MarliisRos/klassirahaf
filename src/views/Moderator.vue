@@ -125,6 +125,9 @@
               </td>
             </tr>
 
+
+            {{groupStudents}}
+
             </tbody>
           </table>
           <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="alignment: center">Eemalda
