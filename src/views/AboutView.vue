@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="pealkiri">
-      <p class="par">
-      <h1>Klassiraha</h1> <br> haldamine ei põhjusta enam peavalu </p>
+      <h1>Klassiraha</h1>
+      <p class="par">haldamine ei põhjusta enam peavalu! </p>
     </div>
-    <div>
-      <!--      <div class="search">-->
-      <input class="srch" type="search" name="" placeholder="Otsing">
-    </div>
+<!--    <div>-->
+<!--      &lt;!&ndash;      <div class="search">&ndash;&gt;-->
+<!--      <input class="srch" type="search" name="" placeholder="Otsing">-->
+<!--    </div>-->
 
     <!--        <button class="btn">Otsing</button>-->
     <!--      </div>-->
@@ -22,11 +22,10 @@
       <h2>Logi sisse</h2>
       <input type="userName" v-model="userName" placeholder="Kasutajanimi">
       <input type="password" v-model="password" placeholder="Parool">
-      <button class="btnn">Logi sisse</button>
-      <br>
+      <button type="button" v-on:click="logIn" class="btnn">Logi sisse</button><br>
       <br>
       <p class="link">Sul ei ole veel kontot, registreeru kasutajaks</p>
-      <button type="button" v-on:click="logIn" class="btnn">Registreeru</button>
+      <button type="button" v-on:click="toRegisterView" class="btnn">Registreeru</button>
     </div>
   </div>
 
@@ -159,11 +158,11 @@ export default {
 
 .form {
   width: 290px;
-  height: 440px;
+  height: 420px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 0%);
   position: absolute;
-  top: 250px;
-  left: 1050px;
+  top: 200px;
+  left:700px;
   border-radius: 20px;
   padding: 20px;
 }
@@ -193,7 +192,7 @@ export default {
   color: midnightblue;
   font-size: 20px;
   letter-spacing: 1px;
-  margin-top: 30px;
+  margin-top:20px;
   font-family: Sans-sarif;
 }
 
@@ -212,7 +211,8 @@ export default {
   background: silver;
   border: 2px solid lightgray;
   border-radius: 10px;
-  margin-top: 30px;
+  margin-top: 20px;
+  color: chocolate;
   font-size: 18px;
   transition: 0.4s ease;
 }
@@ -227,15 +227,15 @@ export default {
   font-weight: bold;
 }
 
-.form.link {
-  font-family: Sans-sarif;
-  font-size: 17px;
-  padding-top: 20px;
-  text-align: center;
-}
+/*.form.link {*/
+/*  font-family: Sans-sarif;*/
+/*  font-size: 17px;*/
+/*  padding-top: 20px;*/
+/*  text-align: center;*/
+/*}*/
 
-.form.link a {
-  text-decoration: none;
-  color: chocolate;
-}
+/*.form.link a {*/
+/*  text-decoration: none;*/
+/*  color: chocolate;*/
+/*}*/
 </style>

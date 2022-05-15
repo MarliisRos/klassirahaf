@@ -1,16 +1,17 @@
 <template>
 
   <div>
-    <input placeholder="Group name" v-model="groupInfoRequest.groupName"><br>
-    <input placeholder="Description" v-model="groupInfoRequest.description"><br>
-    <button v-on:click="createNewGroup">Create new group</button>
+    <div class="form">
+    <input placeholder="Klassi nimi" v-model="groupInfoRequest.groupName"><br>
+    <input placeholder="Kirjeldus" v-model="groupInfoRequest.description"><br>
+    <button v-on:click="createNewGroup" class="btnn"> Registreeri klass</button>
     <br>
     <br>
-    <input placeholder="Group name" v-model="groupName"><br>
-    <button v-on:click="getGroupByGroupName">Find and join group</button>
+    <input placeholder="Klassi nimi" v-model="groupName"><br>
+    <button v-on:click="getGroupByGroupName" class="btnn">Leia klass</button>
     <br>
     <br>
-
+    </div>
     <div v-if="groupListDiv">
       <table class="table table-hover" style="width:auto" align="center">
         <thead>
@@ -179,5 +180,54 @@ export default {
 </script>
 
 <style scoped>
+
+.form {
+  width: 290px;
+  height: 420px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 0%);
+  position: absolute;
+  top: 200px;
+  left:700px;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.form h2 {
+  width: 240px;
+  font-family: Sans-sarif;
+  font-weight: bold;
+  letter-spacing: 1.6px;
+  text-align: center;
+  color: chocolate;
+  font-size: 22px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 2px;
+  padding: 8px;
+}
+
+.form input {
+  width: 240px;
+  height: 35px;
+  background: transparent;
+  border-bottom: 1px solid silver;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: midnightblue;
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-top:20px;
+  font-family: Sans-sarif;
+}
+
+.form input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: silver;
+  font-family: Sans-sarif;
+}
 
 </style>
