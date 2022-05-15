@@ -1,71 +1,18 @@
 <template>
 
-
-
- <div>
-   <div align="left">
-     <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
-     </button>
-     <br>
-     <br>
-   </div>
-   <div>
-     <img
-         src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"
-         alt="">
-   </div>
-   <br>
-  <h3>Registreeri uue kasutaja</h3>
-   <div align="center">
-     <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Eesnimi</span>
-       </div>
-       <input type="text" v-model="newUserInfo.contactFirstName" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-     <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Perekonnanimi</span>
-       </div>
-       <input type="text" v-model="newUserInfo.contactLastName" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-     <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">E-mail</span>
-       </div>
-       <input type="text" v-model="newUserInfo.contactEmail" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-     <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Telefoninumber</span>
-       </div>
-       <input type="text" v-model="newUserInfo.contactTel" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-
-        <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Pangakontonumber</span>
-       </div>
-       <input type="text" v-model="newUserInfo.contactAccountNumber" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-     <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Kasutajanimi</span>
-       </div>
-       <input type="text" v-model="newUserInfo.userName" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-     <div class="input-group input-group-sm mb-3" style="width: 350px">
-       <div class="input-group-prepend">
-         <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Parool</span>
-       </div>
-       <input type="password" v-model="newUserInfo.password" v-on:keyup.enter="createNewUser" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-     </div>
-     <button v-on:click="createNewUser()" class="btn btn-secondary">Registreeri uue kasutaja</button>
-     <br>
-   </div>
-
+  <div>
+    <div class="form">
+      <h2>Registreeri kasutaja</h2>
+      <input placeholder="Eesnimi" v-model="newUserInfo.contactFirstName"><br>
+      <input placeholder="Perekonnanimi" v-model="newUserInfo.contactLastName"><br>
+      <input placeholder="E-mail" v-model="newUserInfo.contactEmail"><br>
+      <input placeholder="Telefoninumber" v-model="newUserInfo.contactTel"><br>
+      <input placeholder="Arvelduskonto" v-model="newUserInfo.contactAccountNumber"><br>
+      <input placeholder="Kasutajanimi" v-model="newUserInfo.userName"><br>
+      <input placeholder="Parool" v-model="newUserInfo.password"><br>
+      <button v-on:click="createNewUser" class="btnn">Registreeru</button>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -99,14 +46,92 @@ export default {
         console.log(error)
       })
     },
-
   },
-
 }
-
 
 </script>
 
 <style scoped>
+.pealkiri h1 {
+  font-family: "Times New Roman";
+  font-size: 40px;
+  padding-left: 20px;
+  margin-top: 2%;
+  letter-spacing: 1.8px;
+  color: chocolate;
+}
+
+.form {
+  width: 290px;
+  height: 500px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 0%);
+  position: absolute;
+  top: 80px;
+  left:550px;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.form h2 {
+  width: 240px;
+  font-family: Sans-sarif;
+  font-weight: bold;
+  letter-spacing: 1.6px;
+  text-align: center;
+  color: chocolate;
+  font-size: 22px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 2px;
+  padding: 8px;
+}
+
+.form input {
+  width: 240px;
+  height: 35px;
+  background: transparent;
+  border-bottom: 1px solid silver;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: midnightblue;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-top:16px;
+  font-family: Sans-sarif;
+}
+
+.form input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: silver;
+  font-family: Sans-sarif;
+}
+
+.btnn {
+  width: 240px;
+  height: 40px;
+  background: silver;
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: chocolate;
+  font-size: 18px;
+  transition: 0.4s ease;
+}
+
+.btnn:hover {
+  background: white;
+  color: chocolate;
+}
+
+.btnn a {
+  color: chocolate;
+  font-weight: bold;
+}
+
+
 
 </style>

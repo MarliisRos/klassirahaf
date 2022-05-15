@@ -5,7 +5,7 @@
 <!--      <router-link to="/login">Login</router-link> |-->
 <!--      <router-link to="/parent">Parent</router-link> |-->
 <!--      <router-link to="/moderator">Moderator</router-link> |-->
-      <router-link  to="/logout" >Log out</router-link>
+      <router-link  to="/logout" >Logi välja</router-link>
     </nav>
     <router-view/>
   </div>
@@ -13,30 +13,24 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-
-  width: 100%;
-  height: 50%;
-  /*background: url('https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg');*/
-  background-size: cover;
-  text-align: center;
-
+  color: midnightblue;
 }
 
 nav {
-  padding: 30px;
+  padding: 10px;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: midnightblue;
+  color: midnightblue;
 }
-
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: chocolate;
+  hover: chocolate;
 }
 </style>

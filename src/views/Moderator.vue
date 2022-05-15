@@ -3,20 +3,14 @@
 
   <div>
     <div align="left">
-      <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
+      <button v-on:click="toMainPage()" class="btn">Avalehele
       </button>
-      <button v-on:click="toParentView()" class="btn btn-light btn-sm m-1">Vanema leheküljele
+      <button v-on:click="toParentView()" class="btn">Vanema lehele
       </button>
-      <button v-on:click="toUpdateContact()" class="btn btn-light btn-sm m-1" style="alignment: right">Uuenda kontaktandmed
+      <button v-on:click="toUpdateContact()" class="btn" style="alignment: right">Uuenda kontaktandmeid
       </button>
       <br>
       <br>
-    </div>
-
-    <div>
-      <img
-          src="https://img.freepik.com/free-vector/classroom-mathematics-learning-school_107791-1685.jpg?size=626&ext=jpg"
-          alt="">
     </div>
     <br>
 
@@ -24,7 +18,7 @@
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="groupStud-tab" data-toggle="tab" href="#groupStud" role="tab"
-             aria-controls="groupStud" aria-selected="true">Sinu gruppi õpilased</a>
+             aria-controls="groupStud" aria-selected="true">Kõik õpilased</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="regStud-tab" data-toggle="tab" href="#regStud" role="tab" aria-controls="regStud"
@@ -33,12 +27,12 @@
         <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#addExpense" role="tab"
              aria-controls="addExpense"
-             aria-selected="false">Kulude lisamine</a>
+             aria-selected="false">Kulu lisamine</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="allExpenses-tab" data-toggle="tab" href="#allExpenses" role="tab"
              aria-controls="allExpenses"
-             aria-selected="false">Kõik gruppi kulud</a>
+             aria-selected="false">Kõik klassi kulud</a>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -63,7 +57,7 @@
                 <button v-on:click="addMoneyToStudent()" class="btn btn-light">Lisa raha</button>
                 <br>
                 <br>
-                <button v-on:click="addMoneyDiv = false" class="btn btn-light">Pane aken kinni</button>
+                <button v-on:click="addMoneyDiv = false" class="btn btn-light">Sulge aken</button>
                 <br>
               </div>
             </div>
@@ -89,7 +83,7 @@
                   <br>
                 </h7>
                 <br>
-                <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
+                <button v-on:click="contactDiv = false" class="btn btn-light">Sulge aken</button>
                 <br>
               </div>
             </div>
@@ -100,10 +94,10 @@
             <tr>
               <th scope="col">Eesnimi</th>
               <th scope="col">Perekonnanimi</th>
-              <th scope="col">Bilanss</th>
+              <th scope="col">Raha saldo</th>
               <th scope="col">Raha lisamine</th>
               <th scope="col">Vanemate kontaktandmed</th>
-              <th scope="col">Eemalda gruppist</th>
+              <th scope="col">Eemalda klassist</th>
             </tr>
             </thead>
             <tbody>
@@ -128,7 +122,7 @@
             </tbody>
           </table>
           <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="alignment: center">Eemalda
-            gruppist
+            klassist
           </button>
           <br>
           <br>
@@ -137,8 +131,8 @@
 
         <div class="tab-pane fade" id="regStud" role="tabpanel" aria-labelledby="regStud-tab">
           <br>
-          <h5 class="card-title">Õpilased, kes on registreeritud Teie gruppi</h5>
-          <p class="card-text">Valige õpilasi keda tahate lisada oma gruppi</p>
+          <h5 class="card-title">Klassi registreeritud õpilased</h5>
+          <p class="card-text">Valige õpilane klassi lisamiseks</p>
           <div align="center">
             <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
               <div class="card-header">{{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }}vanemate
@@ -159,7 +153,7 @@
                   <br>
                 </h7>
                 <br>
-                <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
+                <button v-on:click="contactDiv = false" class="btn btn-light">Sulge aken</button>
                 <br>
               </div>
             </div>
@@ -203,7 +197,7 @@
 
           <div class="input-group mb-3" style="width: 400px">
             <div class="input-group-prepend">
-              <span class="input-group-text">Kulu nimi</span>
+              <span class="input-group-text">Kulu nimetus</span>
             </div>
             <input type="text" v-model="expenseRequest.name" class="form-control" aria-label="Sizing example input"
                    aria-describedby="inputGroup-sizing-default">
@@ -253,7 +247,7 @@
             <div>
               <br>
               <div align="center">
-                <h5> Vali õpilasi kes osalevad</h5>
+                <h5> Vali osalejad</h5>
               </div>
               <br>
               <table class="table table-hover" style="width: auto" align="center">
@@ -288,12 +282,12 @@
              aria-labelledby="allExpenses-tab">
           <br>
           <div v-if="groupExpenseLogDiv">
-            <h5 class="card-title">Kõik Teie gruppiga seotud kulud</h5>
+            <h5 class="card-title">Kõik klassiga seotud kulud</h5>
             <br>
             <table class="table table-hover" style="width:auto" align="center">
               <thead>
               <tr>
-                <th scope="col">Kulu nimi</th>
+                <th scope="col">Kulu nimetus</th>
                 <th scope="col">Selgitus</th>
                 <th scope="col">Summa</th>
                 <th scope="col">Kuupäev</th>
@@ -372,7 +366,7 @@
           <input type="text" v-model="contactRequest.accountNumber" class="form-control"
                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
-        <button v-on:click="updateContactInfo()" class="btn btn-secondary m-3">Uuenda kontaktandmed</button>
+        <button v-on:click="updateContactInfo()" class="btn btn-secondary m-3">Uuenda kontaktandmeid</button>
         <button v-on:click="toMainView()" class="btn btn-secondary">Tagasi</button>
 
       <br>
@@ -689,5 +683,68 @@ export default {
 </script>
 
 <style scoped>
+.btnn {
+  width: 180px;
+  height: 40px;
+  background: silver;
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  /*margin-top:5px;*/
+  color: chocolate;
+  font-size: 18px;
+  transition: 0.4s ease;
+}
+
+.btnn:hover {
+  background: white;
+  color: chocolate;
+}
+
+.btnn a {
+  color: chocolate;
+  font-weight: bold;
+}
+
+.btn {
+  width: 200px;
+  height: 40px;
+  background: white;
+  border: 2px solid lightgray;
+  /*margin-top: 13px;*/
+  color: midnightblue;
+  font-size: 15px;
+  border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:hover {
+  background-color: gainsboro;
+}
+
+.form par {
+  font-family: Sans-sarif;
+  font-size: 17px;
+  padding-top: 20px;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.form. par a {
+  text-decoration: none;
+  color: chocolate;
+}
+.h4 {
+  font-family:"Times New Roman";
+  font-size: 45px;
+  padding-left: 20px;
+  margin-top: 2%;
+  letter-spacing: 2px;
+  color: chocolate;
+}
+
 
 </style>
