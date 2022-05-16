@@ -14,7 +14,7 @@
       <br>
     </div>
     <div v-if="groupListDiv">
-      <table class="table table-hover" style="width:auto" align="center">
+      <table class="table table-hover" style="width:auto" align="left">
         <thead>
         <tr>
           <th scope="col">Klassi nimi</th>
