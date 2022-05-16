@@ -153,7 +153,7 @@ export default {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 0%);
   position: absolute;
   top: 200px;
-  left: 700px;
+  left: 800px;
   border-radius: 20px;
   padding: 20px;
 }

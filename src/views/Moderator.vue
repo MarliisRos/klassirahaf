@@ -38,10 +38,13 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="groupStud" role="tabpanel" aria-labelledby="groupStud-tab">
           <br>
-          <h5 class="card-title">Sinu gruppi õpilased</h5>
-          <p class="card-text">Vali õpilased keda tahad gruppist eemaldada</p>
-          <p class="card-text">Lisa raha õpilase bilanssile</p>
-          <p class="card-text">Vaata õpilase vanemate kontaktandmed</p>
+
+          <div class="pealkiri"><h5>Klassiraha haldus</h5><br>
+            <p class="card-text">Sellel lehel saad hallata klassis olevate õpilaste sissetulekuid ja väljaminekuid</p>
+            <!--          <p class="card-text">Lisa raha õpilase bilanssile</p>-->
+            <!--          <p class="card-text">Vaata õpilase vanemate kontaktandmed</p>-->
+          </div>
+          <br>
 
 
           <div align="center">
@@ -50,15 +53,16 @@
                 {{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }} bilanssi
               </div>
               <div class="card-body">
-                <h5 class="card-title">Sisesta raha kogus</h5>
-                <input type="number" v-model="amount" name="" id="amount">
-                <br>
-                <br>
-                <button v-on:click="addMoneyToStudent()" class="btn btn-light">Lisa raha</button>
-                <br>
-                <br>
-                <button v-on:click="addMoneyDiv = false" class="btn btn-light">Sulge aken</button>
-                <br>
+                <div class="pealkiri"><h5>Sisesta raha kogus</h5>
+                  <input type="number" v-model="amount" name="" id="amount">
+                  <br>
+                  <br>
+                  <button v-on:click="addMoneyToStudent()" class="btnn">Lisa raha</button>
+                  <br>
+                  <br>
+                  <button v-on:click="addMoneyDiv = false" class="btnn">Sulge aken</button>
+                  <br>
+                </div>
               </div>
             </div>
           </div>
@@ -83,7 +87,7 @@
                   <br>
                 </h7>
                 <br>
-                <button v-on:click="contactDiv = false" class="btn btn-light">Sulge aken</button>
+                <button v-on:click="contactDiv = false" class="btnn">Sulge aken</button>
                 <br>
               </div>
             </div>
@@ -106,11 +110,11 @@
               <td>{{ student.lastName }}</td>
               <td>{{ student.studentBalanceAmount }}</td>
               <td>
-                <button v-on:click="toAddMoneyDiv(student)" class="btn btn-secondary">Lisa raha</button>
+                <button v-on:click="toAddMoneyDiv(student)" class="btn">Lisa raha</button>
 
               </td>
               <td>
-                <button v-on:click="toContactDiv(student)" class="btn btn-secondary">Kontaktandmed</button>
+                <button v-on:click="toContactDiv(student)" class="btn">Kontaktandmed</button>
               </td>
               <td>
                 <input type="checkbox" name="" id="groupStudents" v-model="student.selected">
@@ -121,7 +125,7 @@
 
             </tbody>
           </table>
-          <button v-on:click="removeStudentsFromGroup()" class="btn btn-warning" style="alignment: center">Eemalda
+          <button v-on:click="removeStudentsFromGroup()" class="btnn" style="alignment: center">Eemalda
             klassist
           </button>
           <br>
@@ -131,12 +135,13 @@
 
         <div class="tab-pane fade" id="regStud" role="tabpanel" aria-labelledby="regStud-tab">
           <br>
-          <h5 class="card-title">Klassi registreeritud õpilased</h5>
+          <div class="pealkiri"><h5>Klassi registreeritud õpilased</h5>
           <p class="card-text">Valige õpilane klassi lisamiseks</p>
           <div align="center">
             <div v-if="contactDiv" class="card text-white bg-secondary mb-3" style="max-width: 18rem">
               <div class="card-header">{{ this.studentFirstName }}{{ ' ' }}{{ this.studentLastName }}{{ ' ' }}vanemate
                 andmed
+              </div>
               </div>
               <div class="card-body">
 
@@ -153,7 +158,7 @@
                   <br>
                 </h7>
                 <br>
-                <button v-on:click="contactDiv = false" class="btn btn-light">Sulge aken</button>
+                <button v-on:click="contactDiv = false" class="btnn">Sulge aken</button>
                 <br>
               </div>
             </div>
@@ -173,7 +178,7 @@
               <td>{{ student.firstName }}</td>
               <td>{{ student.lastName }}</td>
               <td>
-                <button v-on:click="toContactDiv(student)" class="btn btn-secondary">Kontaktandmed</button>
+                <button v-on:click="toContactDiv(student)" class="btnn">Kontaktandmed</button>
               </td>
               <td>
                 <input type="checkbox" name="" v-model="student.selected">
@@ -183,7 +188,7 @@
 
             </tbody>
           </table>
-          <button v-on:click="registerStudents()" class="btn btn-success" style="alignment: center">Registreeri õpilasi
+          <button v-on:click="registerStudents()" class="btnn" style="alignment: center">Registreeri õpilasi
           </button>
           <br>
           <br>
@@ -191,8 +196,10 @@
 
         <div class="tab-pane fade" id="addExpense" role="tabpanel" aria-labelledby="addExpense-tab" align="center">
           <br>
-          <h5 class="card-title">Uue kulu lisamine</h5>
+          <div class="pealkiri"><h5>Kulu lisamine</h5>
+            <br>
           <p class="card-text">Lisa kõik kuludega seotud info siia</p>
+            </div>
 
 
           <div class="input-group mb-3" style="width: 400px">
@@ -228,7 +235,8 @@
                   <label class="custom-file-label" for="inputGroupFile04">{{ pictureMessage }}</label>
                 </div>
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" v-on:click="addNewReceiptPicture">Lisa pilt
+                  <button class="btn btn-outline-secondary" type="button" v-on:click="addNewReceiptPicture">Lisa
+                    dokument
                   </button>
                 </div>
               </div>
@@ -270,7 +278,7 @@
                 </tbody>
               </table>
 
-              <button v-on:click="addNewExpense()" class="btn btn-secondary">Lisa kulu</button>
+              <button v-on:click="addNewExpense()" class="btnn">Lisa kulu</button>
               <br>
               <br>
             </div>
@@ -282,7 +290,7 @@
              aria-labelledby="allExpenses-tab">
           <br>
           <div v-if="groupExpenseLogDiv">
-            <h5 class="card-title">Kõik klassiga seotud kulud</h5>
+            <div class="pealkiri"><h5>Klassi kulude aruanne</h5>
             <br>
             <table class="table table-hover" style="width:auto" align="center">
               <thead>
@@ -291,7 +299,7 @@
                 <th scope="col">Selgitus</th>
                 <th scope="col">Summa</th>
                 <th scope="col">Kuupäev</th>
-                <th scope="col">Vaata pilti</th>
+                <th scope="col">Kuva arve/tšekk</th>
               </tr>
               </thead>
               <tbody>
@@ -301,18 +309,19 @@
                 <td>{{ expence.amount }}</td>
                 <td>{{ expence.dateAndTime }}</td>
                 <td>
-                  <button v-on:click="getReceiptPictures(expence.expenseId)" type="button" class="btn btn-light btn-sm">
-                    Vaata pilti
+                  <button v-on:click="getReceiptPictures(expence.expenseId)" type="button" class="btn">
+                    Vaata
                   </button>
                 </td>
               </tr>
               <br>
               </tbody>
             </table>
+              </div>
           </div>
 
           <div v-if="expencePictureDiv">
-            <button v-on:click="toExpenseLogDiv()" class="btn btn-secondary ">Tagasi</button>
+            <button v-on:click="toExpenseLogDiv()" class="btnn">Tagasi</button>
             <br>
             <br>
             <div v-for="picture in pictures">
@@ -330,44 +339,44 @@
     <div v-if="updateContactDiv" align="center">
 
 
-        <div class="input-group input-group-sm mb-3" style="width: 350px">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Eesnimi</span>
-          </div>
-          <input type="text" v-model="contactRequest.firstName" class="form-control" aria-label="Sizing example input"
-                 aria-describedby="inputGroup-sizing-sm">
+      <div class="input-group input-group-sm mb-3" style="width: 350px">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Eesnimi</span>
         </div>
-        <div class="input-group input-group-sm mb-3" style="width: 350px">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Perekonnanimi</span>
-          </div>
-          <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
-                 aria-describedby="inputGroup-sizing-sm">
+        <input type="text" v-model="contactRequest.firstName" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="input-group input-group-sm mb-3" style="width: 350px">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Perekonnanimi</span>
         </div>
-        <div class="input-group input-group-sm mb-3" style="width: 350px">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">E-mail</span>
-          </div>
-          <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
-                 aria-describedby="inputGroup-sizing-sm">
+        <input type="text" v-model="contactRequest.lastName" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="input-group input-group-sm mb-3" style="width: 350px">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">E-mail</span>
         </div>
-        <div class="input-group input-group-sm mb-3" style="width: 350px">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Telefoninumber</span>
-          </div>
-          <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
-                 aria-describedby="inputGroup-sizing-sm">
+        <input type="text" v-model="contactRequest.email" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="input-group input-group-sm mb-3" style="width: 350px">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Telefoninumber</span>
         </div>
+        <input type="text" v-model="contactRequest.tel" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-sm">
+      </div>
 
-        <div class="input-group input-group-sm mb-3" style="width: 350px">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Pangakontonumber</span>
-          </div>
-          <input type="text" v-model="contactRequest.accountNumber" class="form-control"
-                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+      <div class="input-group input-group-sm mb-3" style="width: 350px">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 135px">Pangakontonumber</span>
         </div>
-        <button v-on:click="updateContactInfo()" class="btn btn-secondary m-3">Uuenda kontaktandmeid</button>
-        <button v-on:click="toMainView()" class="btn btn-secondary">Tagasi</button>
+        <input type="text" v-model="contactRequest.accountNumber" class="form-control"
+               aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <button v-on:click="updateContactInfo()" class="btnn">Salvesta</button>
+      <button v-on:click="toMainView()" class="btnn">Tagasi</button>
 
       <br>
       <br>
@@ -448,7 +457,7 @@ export default {
     toMainView: function () {
       this.updateContactDiv = false
       this.mainDiv = true
-      this.contactRequest ={}
+      this.contactRequest = {}
     },
 
     toAddMoneyDiv: function (student) {
@@ -737,9 +746,10 @@ export default {
   text-decoration: none;
   color: chocolate;
 }
-.h4 {
-  font-family:"Times New Roman";
-  font-size: 45px;
+
+.pealkiri h5 {
+  font-family: "Times New Roman";
+  font-size: 30px;
   padding-left: 20px;
   margin-top: 2%;
   letter-spacing: 2px;
