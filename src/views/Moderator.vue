@@ -76,7 +76,7 @@
               </div>
               <div class="card-body">
 
-                <h7 class="card-title">
+                <h6 class="card-title">
                   {{ 'Eesnimi: ' }}{{ this.firstName }}
                   <br>
                   {{ 'Perekonnanimi: ' }}{{ this.lastName }}
@@ -87,7 +87,7 @@
                   <br>
                   {{ 'Pangakonto nr: ' }}{{ this.accountNumber }}
                   <br>
-                </h7>
+                </h6>
                 <br>
                 <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
                 <br>
@@ -146,7 +146,7 @@
               </div>
               <div class="card-body">
 
-                <h7 class="card-title">
+                <h6 class="card-title">
                   {{ 'Eesnimi: ' }}{{ this.firstName }}
                   <br>
                   {{ 'Perekonnanimi: ' }}{{ this.lastName }}
@@ -157,7 +157,7 @@
                   <br>
                   {{ 'Pangakonto nr: ' }}{{ this.accountNumber }}
                   <br>
-                </h7>
+                </h6>
                 <br>
                 <button v-on:click="contactDiv = false" class="btn btn-light">Pane aken kinni</button>
                 <br>
@@ -561,8 +561,8 @@ export default {
 
     removeStudentsFromGroup: async function () {
       await this.$http.post("/moderator/students-deactivation", this.groupStudents,
-      ).then(response => {
-        this.getGroupStudents()
+      ).then( response => {
+       this.getGroupStudents()
         this.getRegisteredStudents()
       }).catch(error => {
         console.log(error)

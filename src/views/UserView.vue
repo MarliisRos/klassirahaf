@@ -8,7 +8,9 @@
           alt="">
     </div>
     <br>
-
+    <h3>Registreeri uus grupp</h3>
+    <br>
+    <br>
     <div align="center">
     <div class="input-group mb-3" style="width: 300px" >
       <div class="input-group-prepend">
@@ -29,6 +31,9 @@
     <br>
     </div>
 
+    <h3>Otsi grupp lapse registreerimiseks</h3>
+    <br>
+    <br>
     <div align="center">
     <div class="input-group mb-3" style="width: 300px">
       <div class="input-group-prepend">
@@ -43,6 +48,10 @@
     <br>
     </div>
 
+
+    <h3>Sinuga seotud grupid</h3>
+    <br>
+    <br>
     <div v-if="groupListDiv">
       <table class="table table-hover" style="width:auto" align="center">
         <thead>

@@ -4,7 +4,7 @@
 
  <div>
    <div align="left">
-     <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Pealeheküljele
+     <button v-on:click="toMainPage()" class="btn btn-light btn-sm m-1">Login leheküljele
      </button>
      <br>
      <br>
@@ -62,6 +62,7 @@
      </div>
      <button v-on:click="createNewUser()" class="btn btn-secondary">Registreeri uue kasutaja</button>
      <br>
+     <br>
    </div>
 
   </div>
@@ -83,6 +84,10 @@ export default {
   },
 
   methods: {
+
+    toMainPage: function () {
+      this.$router.push({name: 'loginRoute'})
+    },
 
     createNewUser: function () {
       this.$http.post("/expense/new-user", this.newUserInfo

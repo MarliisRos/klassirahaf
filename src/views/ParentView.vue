@@ -71,10 +71,10 @@
           <td>{{ student.groupBalanceAmount }}</td>
           <td>
             <button v-on:click="getStudentBalanceLogByStudentId(student.studentId)" type="button" name="btn"
-                    class="btn btn-secondary btn-sm m-3">
+                    class="btn btn-secondary btn-sm m-1">
               Näita lapse bilanss loge
             </button>
-            <button v-on:click="getGroupExpenses()" type="button" name="btn" class="btn btn-secondary btn-sm m-3">
+            <button v-on:click="getGroupExpenses()" type="button" name="btn" class="btn btn-secondary btn-sm">
               Näita grupi kulusid
             </button>
           </td>
