@@ -14,7 +14,7 @@
       <br>
     </div>
     <div v-if="groupListDiv">
-      <table class="table table-hover" style="width:auto" align="left">
+      <table class="table table-hover" style="width:auto" align="center">
         <thead>
         <tr>
           <th scope="col">Klassi nimi</th>
@@ -157,7 +157,7 @@ export default {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 0%);
   position: absolute;
   top: 100px;
-  left: 900px;
+  left: 1200px;
   border-radius: 20px;
   padding: 20px;
 }
